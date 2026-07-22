@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport"
+content="width=device-width,initial-scale=1">
+
+<title>Search Products</title>
+
+<style>
+
+body{
+background:#111;
+color:white;
+font-family:Arial,sans-serif;
+padding:15px;
+}
+
+h1{
+text-align:center;
+color:#f39c12;
+margin-bottom:20px;
+}
+
+.grid{
+
+display:grid;
+
+grid-template-columns:
+repeat(auto-fit,minmax(220px,1fr));
+
+gap:15px;
+
+}
+
+.card{
+
+background:#1c1c1c;
+
+padding:15px;
+
+border-radius:12px;
+
+cursor:pointer;
+
+}
+
+.price{
+
+color:#f39c12;
+
+font-size:20px;
+
+font-weight:bold;
+
+margin-top:10px;
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<h1>
+Search Results
+</h1>
+
+<div
+class="grid"
+id="results">
+</div>
+
+<script>
+
+const params =
+new URLSearchParams(
+window.location.search
+);
+
+const query =
+(params.get('q') || '')
+.toLowerCase();
+console.log("Search Query:", query);
+async function loadResults(){
+
+const response =
+await fetch(
+'http://localhost:5000/products'
+);
+
+const products =
+await response.json();
+
+const filtered =
+
+products.filter(product =>
+console.log(products.length);
+(product.product_name || '')
+.toLowerCase()
+.includes(query)
+
+||
+
+(product.brand || '')
+.toLowerCase()
+.includes(query)
+
+||
+
+(product.product_type || '')
+.toLowerCase()
+.includes(query)
+
+||
+
+(product.main_category || '')
+.toLowerCase()
+.includes(query)
+
+||
+
+(product.sub_category || '')
+.toLowerCase()
+.includes(query)
+
+);
+
+let html='';
+
+filtered.forEach(product=>{
+
+html += `
+
+<div
+class="card"
+onclick="openProduct(${product.id})">
+
+<h3>
+${product.product_name}
+</h3>
+
+<p>
+${product.brand}
+</p>
+
+<p>
+${product.variant_name}
+</p>
+
+<div class="price">
+
+₹${product.retail_price}
+
+</div>
+
+</div>
+
+`;
+
+});
+
+document.getElementById(
+'results'
+).innerHTML =
+html;
+
+}
+
+function openProduct(id){
+
+window.location.href =
+
+`product-details.html?id=${id}`;
+
+}
+
+loadResults();
+
+</script>
+
+</body>
+
+</html>

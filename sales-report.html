@@ -1,0 +1,1156 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta
+name="viewport"
+content="width=device-width, initial-scale=1.0">
+
+<title>
+
+SLV Stores - Sales Report
+
+</title>
+
+<style>
+
+*{
+
+margin:0;
+
+padding:0;
+
+box-sizing:border-box;
+
+font-family:Arial,sans-serif;
+
+}
+
+html{
+
+scroll-behavior:smooth;
+
+}
+
+body{
+
+background:#111;
+
+color:white;
+
+padding:20px;
+
+padding-bottom:40px;
+
+overflow-x:hidden;
+
+}
+
+/* Header */
+
+.header{
+
+display:flex;
+
+justify-content:space-between;
+
+align-items:center;
+
+flex-wrap:wrap;
+
+gap:15px;
+
+margin-bottom:25px;
+
+}
+
+.logo{
+
+font-size:32px;
+
+font-weight:bold;
+
+color:#f39c12;
+
+}
+
+.back-btn{
+
+padding:12px 20px;
+
+background:#f39c12;
+
+color:#111;
+
+text-decoration:none;
+
+font-weight:bold;
+
+border-radius:10px;
+
+transition:.3s;
+
+}
+
+.back-btn:hover{
+
+background:#ffb84d;
+
+}
+
+/* Search */
+
+.search-box{
+
+margin-bottom:25px;
+
+}
+
+.search-box input{
+
+width:100%;
+
+padding:15px;
+
+background:#1c1c1c;
+
+border:2px solid #333;
+
+border-radius:15px;
+
+outline:none;
+
+color:white;
+
+font-size:16px;
+
+transition:.3s;
+
+}
+
+.search-box input:focus{
+
+border-color:#f39c12;
+
+}
+
+/* Statistics */
+
+.stats{
+
+display:grid;
+
+grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+
+gap:18px;
+
+margin-bottom:25px;
+
+}
+
+.stat-card{
+
+background:#1c1c1c;
+
+border:2px solid #333;
+
+border-radius:18px;
+
+padding:22px;
+
+text-align:center;
+
+transition:.3s;
+
+}
+
+.stat-card:hover{
+
+border-color:#f39c12;
+
+transform:translateY(-5px);
+
+}
+
+.stat-card h3{
+
+color:#f39c12;
+
+margin-bottom:10px;
+
+}
+
+.stat-card h2{
+
+font-size:30px;
+
+}
+/* Filters */
+
+.filter-bar{
+
+display:grid;
+
+grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+
+gap:15px;
+
+margin-bottom:25px;
+
+}
+
+.filter-bar input,
+
+.filter-bar select{
+
+padding:14px;
+
+border:none;
+
+outline:none;
+
+border-radius:12px;
+
+background:#1c1c1c;
+
+border:2px solid #333;
+
+color:white;
+
+font-size:15px;
+
+transition:.3s;
+
+}
+
+.filter-bar input:focus,
+
+.filter-bar select:focus{
+
+border-color:#f39c12;
+
+}
+
+/* Report Cards */
+
+.report-card{
+
+background:#1c1c1c;
+
+border:2px solid #333;
+
+border-radius:20px;
+
+padding:20px;
+
+margin-bottom:30px;
+
+box-shadow:0 10px 20px rgba(0,0,0,.25);
+
+}
+
+.report-card h2{
+
+color:#f39c12;
+
+margin-bottom:20px;
+
+}
+
+/* Tables */
+
+.table-container{
+
+overflow-x:auto;
+
+}
+
+table{
+
+width:100%;
+
+min-width:900px;
+
+border-collapse:collapse;
+
+}
+
+thead{
+
+background:#f39c12;
+
+color:#111;
+
+}
+
+th{
+
+padding:15px;
+
+text-align:center;
+
+font-size:15px;
+
+}
+
+td{
+
+padding:14px;
+
+text-align:center;
+
+border-bottom:1px solid #333;
+
+color:#ddd;
+
+}
+
+tbody tr{
+
+transition:.3s;
+
+}
+
+tbody tr:hover{
+
+background:#252525;
+
+}
+
+.amount{
+
+color:#2ecc71;
+
+font-weight:bold;
+
+}
+
+.customer{
+
+color:#4fc3f7;
+
+font-weight:bold;
+
+}
+
+.product{
+
+color:#f5b041;
+
+font-weight:bold;
+
+}
+
+.print-btn{
+
+margin-top:20px;
+
+padding:14px 24px;
+
+border:none;
+
+border-radius:12px;
+
+background:#3498db;
+
+color:white;
+
+font-weight:bold;
+
+cursor:pointer;
+
+transition:.3s;
+
+}
+
+.print-btn:hover{
+
+background:#2980b9;
+
+}
+/* Animation */
+
+.fade{
+
+animation:fadeIn .8s ease;
+
+}
+
+@keyframes fadeIn{
+
+from{
+
+opacity:0;
+
+transform:translateY(20px);
+
+}
+
+to{
+
+opacity:1;
+
+transform:translateY(0);
+
+}
+
+}
+
+@media(max-width:768px){
+
+.header{
+
+flex-direction:column;
+
+align-items:flex-start;
+
+}
+
+.filter-bar{
+
+grid-template-columns:1fr;
+
+}
+
+.stats{
+
+grid-template-columns:repeat(2,1fr);
+
+}
+
+}
+
+@media(max-width:480px){
+
+.stats{
+
+grid-template-columns:1fr;
+
+}
+
+.logo{
+
+font-size:28px;
+
+}
+
+}
+
+</style>
+
+</head>
+
+<body class="fade">
+
+<div class="header">
+
+<div class="logo">
+
+📈 Sales Report
+
+</div>
+
+<a
+
+href="dashboard.html"
+
+class="back-btn">
+
+⬅ Dashboard
+
+</a>
+
+</div>
+
+<div class="search-box">
+
+<input
+
+type="text"
+
+id="searchInput"
+
+placeholder="🔍 Search Customer, Invoice or Product..."
+
+onkeyup="searchReport()">
+
+</div>
+
+<div class="stats">
+
+<div class="stat-card">
+
+<h3>
+
+Total Bills
+
+</h3>
+
+<h2 id="totalBills">
+
+0
+
+</h2>
+
+</div>
+
+<div class="stat-card">
+
+<h3>
+
+Total Revenue
+
+</h3>
+
+<h2 id="totalRevenue">
+
+₹0.00
+
+</h2>
+
+</div>
+
+<div class="stat-card">
+
+<h3>
+
+Today's Revenue
+
+</h3>
+
+<h2 id="todayRevenue">
+
+₹0.00
+
+</h2>
+
+</div>
+
+<div class="stat-card">
+
+<h3>
+
+Monthly Revenue
+
+</h3>
+
+<h2 id="monthlyRevenue">
+
+₹0.00
+
+</h2>
+
+</div>
+
+<div class="stat-card">
+
+<h3>
+
+Pending Orders
+
+</h3>
+
+<h2 id="pendingOrders">
+
+0
+
+</h2>
+
+</div>
+
+<div class="stat-card">
+
+<h3>
+
+Delivered Orders
+
+</h3>
+
+<h2 id="deliveredOrders">
+
+0
+
+</h2>
+
+</div>
+
+</div>
+
+<div class="filter-bar">
+
+<input
+
+type="date"
+
+id="dateFilter"
+
+onchange="filterReport()">
+
+<input
+
+type="month"
+
+id="monthFilter"
+
+onchange="filterReport()">
+
+<input
+
+type="text"
+
+id="customerFilter"
+
+placeholder="Customer Name"
+
+onkeyup="filterReport()">
+
+</div>
+
+<div class="report-card">
+
+<h2>
+
+🏆 Top Selling Products
+
+</h2>
+
+<div class="table-container">
+
+<table>
+
+<thead>
+
+<tr>
+
+<th>
+
+Product
+
+</th>
+
+<th>
+
+Quantity Sold
+
+</th>
+
+</tr>
+
+</thead>
+
+<tbody id="topProductsBody">
+
+<tr>
+
+<td colspan="2">
+
+Loading...
+
+</td>
+
+</tr>
+
+</tbody>
+
+</table>
+
+</div>
+
+</div>
+
+<div class="report-card">
+
+<h2>
+
+🧾 Recent Bills
+
+</h2>
+
+<div class="table-container">
+
+<table>
+
+<thead>
+
+<tr>
+
+<th>
+
+Invoice
+
+</th>
+
+<th>
+
+Customer
+
+</th>
+
+<th>
+
+Total
+
+</th>
+
+</tr>
+
+</thead>
+
+<tbody id="recentBillsBody">
+
+<tr>
+
+<td colspan="3">
+
+Loading...
+
+</td>
+
+</tr>
+
+</tbody>
+
+</table>
+
+</div>
+
+<button
+
+class="print-btn"
+
+onclick="window.print()">
+
+🖨 Print Report
+
+</button>
+
+</div>
+<script>
+
+let recentBills=[];
+
+async function loadRecentBills(){
+
+try{
+
+const response=
+
+await fetch(
+
+"http://localhost:5000/recent-bills"
+
+);
+
+recentBills=
+
+await response.json();
+
+let html="";
+
+recentBills.forEach(bill=>{
+
+html+=`
+
+<tr>
+
+<td>
+
+${bill.invoice_number}
+
+</td>
+
+<td class="customer">
+
+${bill.customer_name}
+
+</td>
+
+<td class="amount">
+
+₹${Number(bill.total_amount).toFixed(2)}
+
+</td>
+
+</tr>
+
+`;
+
+});
+
+if(html===""){
+
+html=`
+
+<tr>
+
+<td colspan="3">
+
+No Recent Bills
+
+</td>
+
+</tr>
+
+`;
+
+}
+
+document.getElementById(
+
+"recentBillsBody"
+
+).innerHTML=
+
+html;
+
+}
+
+catch(error){
+
+console.error(error);
+
+}
+
+}
+
+async function loadTopProducts(){
+
+try{
+
+const response=
+
+await fetch(
+
+"http://localhost:5000/top-products"
+
+);
+
+const products=
+
+await response.json();
+
+let html="";
+
+products.forEach(product=>{
+
+html+=`
+
+<tr>
+
+<td class="product">
+
+${product.product_name}
+
+</td>
+
+<td>
+
+${product.total_qty}
+
+</td>
+
+</tr>
+
+`;
+
+});
+
+if(html===""){
+
+html=`
+
+<tr>
+
+<td colspan="2">
+
+No Data Available
+
+</td>
+
+</tr>
+
+`;
+
+}
+
+document.getElementById(
+
+"topProductsBody"
+
+).innerHTML=
+
+html;
+
+}
+
+catch(error){
+
+console.error(error);
+
+}
+
+}
+
+async function loadRevenue(){
+
+try{
+
+const today=
+
+await fetch(
+
+"http://localhost:5000/today-revenue"
+
+);
+
+const todayData=
+
+await today.json();
+
+document.getElementById(
+
+"todayRevenue"
+
+).innerText=
+
+"₹"+
+
+Number(todayData.revenue||0)
+
+.toFixed(2);
+
+const month=
+
+await fetch(
+
+"http://localhost:5000/monthly-revenue"
+
+);
+
+const monthData=
+
+await month.json();
+
+document.getElementById(
+
+"monthlyRevenue"
+
+).innerText=
+
+"₹"+
+
+Number(monthData.revenue||0)
+
+.toFixed(2);
+
+}
+
+catch(error){
+
+console.error(error);
+
+}
+
+}
+
+async function loadReport(){
+
+try{
+
+const response=
+
+await fetch(
+
+"http://localhost:5000/sales-report"
+
+);
+
+const data=
+
+await response.json();
+
+document.getElementById(
+
+"totalBills"
+
+).innerText=
+
+data.total_bills||0;
+
+document.getElementById(
+
+"totalRevenue"
+
+).innerText=
+
+"₹"+
+
+Number(data.total_revenue||0)
+
+.toFixed(2);
+
+document.getElementById(
+
+"pendingOrders"
+
+).innerText=
+
+data.pending_orders||0;
+
+document.getElementById(
+
+"deliveredOrders"
+
+).innerText=
+
+data.delivered_orders||0;
+
+}
+
+catch(error){
+
+console.error(error);
+
+}
+
+}
+function searchReport(){
+
+const value=
+
+document.getElementById(
+
+"searchInput"
+
+).value.toLowerCase();
+
+const rows=
+
+document.querySelectorAll(
+
+"#recentBillsBody tr"
+
+);
+
+rows.forEach(row=>{
+
+row.style.display=
+
+row.innerText
+
+.toLowerCase()
+
+.includes(value)
+
+?
+
+"table-row"
+
+:
+
+"none";
+
+});
+
+}
+
+function filterReport(){
+
+const customer=
+
+document.getElementById(
+
+"customerFilter"
+
+).value.toLowerCase();
+
+const date=
+
+document.getElementById(
+
+"dateFilter"
+
+).value;
+
+const month=
+
+document.getElementById(
+
+"monthFilter"
+
+).value;
+
+const rows=
+
+document.querySelectorAll(
+
+"#recentBillsBody tr"
+
+);
+
+rows.forEach(row=>{
+
+const text=
+
+row.innerText
+
+.toLowerCase();
+
+let show=true;
+
+if(customer!=="" &&
+
+!text.includes(customer)){
+
+show=false;
+
+}
+
+if(date!=="" &&
+
+!text.includes(date)){
+
+show=false;
+
+}
+
+if(month!=="" &&
+
+!text.includes(month)){
+
+show=false;
+
+}
+
+row.style.display=
+
+show
+
+?
+
+"table-row"
+
+:
+
+"none";
+
+});
+
+}
+
+loadRecentBills();
+
+loadTopProducts();
+
+loadRevenue();
+
+loadReport();
+
+</script>
+
+</body>
+
+</html>

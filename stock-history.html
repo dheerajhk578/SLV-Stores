@@ -1,0 +1,986 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta
+name="viewport"
+content="width=device-width, initial-scale=1.0">
+
+<title>
+
+SLV Stores - Stock History
+
+</title>
+
+<style>
+
+*{
+
+margin:0;
+
+padding:0;
+
+box-sizing:border-box;
+
+font-family:Arial,sans-serif;
+
+}
+
+html{
+
+scroll-behavior:smooth;
+
+}
+
+body{
+
+background:#111;
+
+color:white;
+
+padding:20px;
+
+padding-bottom:40px;
+
+overflow-x:hidden;
+
+}
+
+/* Header */
+
+.header{
+
+display:flex;
+
+justify-content:space-between;
+
+align-items:center;
+
+flex-wrap:wrap;
+
+gap:15px;
+
+margin-bottom:25px;
+
+}
+
+.logo{
+
+font-size:32px;
+
+font-weight:bold;
+
+color:#f39c12;
+
+}
+
+.back-btn{
+
+padding:12px 20px;
+
+background:#f39c12;
+
+color:#111;
+
+text-decoration:none;
+
+font-weight:bold;
+
+border-radius:10px;
+
+transition:.3s;
+
+}
+
+.back-btn:hover{
+
+background:#ffb84d;
+
+}
+
+/* Search */
+
+.search-box{
+
+margin-bottom:25px;
+
+}
+
+.search-box input{
+
+width:100%;
+
+padding:15px;
+
+background:#1c1c1c;
+
+border:2px solid #333;
+
+border-radius:15px;
+
+outline:none;
+
+color:white;
+
+font-size:16px;
+
+transition:.3s;
+
+}
+
+.search-box input:focus{
+
+border-color:#f39c12;
+
+}
+
+/* Statistics */
+
+.stats{
+
+display:grid;
+
+grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+
+gap:18px;
+
+margin-bottom:25px;
+
+}
+
+.stat-card{
+
+background:#1c1c1c;
+
+border:2px solid #333;
+
+border-radius:18px;
+
+padding:22px;
+
+text-align:center;
+
+transition:.3s;
+
+}
+
+.stat-card:hover{
+
+border-color:#f39c12;
+
+transform:translateY(-5px);
+
+}
+
+.stat-card h3{
+
+color:#f39c12;
+
+margin-bottom:10px;
+
+}
+
+.stat-card h2{
+
+font-size:30px;
+
+}
+/* Filters */
+
+.filter-bar{
+
+display:grid;
+
+grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+
+gap:15px;
+
+margin-bottom:25px;
+
+}
+
+.filter-bar input,
+
+.filter-bar select{
+
+padding:14px;
+
+border:none;
+
+outline:none;
+
+border-radius:12px;
+
+background:#1c1c1c;
+
+border:2px solid #333;
+
+color:white;
+
+font-size:15px;
+
+transition:.3s;
+
+}
+
+.filter-bar input:focus,
+
+.filter-bar select:focus{
+
+border-color:#f39c12;
+
+}
+
+/* History Table */
+
+.table-card{
+
+background:#1c1c1c;
+
+border:2px solid #333;
+
+border-radius:20px;
+
+padding:20px;
+
+box-shadow:0 10px 20px rgba(0,0,0,.25);
+
+}
+
+.table-container{
+
+overflow-x:auto;
+
+}
+
+table{
+
+width:100%;
+
+min-width:1200px;
+
+border-collapse:collapse;
+
+}
+
+thead{
+
+background:#f39c12;
+
+color:#111;
+
+}
+
+th{
+
+padding:15px;
+
+text-align:center;
+
+font-size:15px;
+
+}
+
+td{
+
+padding:14px;
+
+text-align:center;
+
+border-bottom:1px solid #333;
+
+color:#ddd;
+
+}
+
+tbody tr{
+
+transition:.3s;
+
+}
+
+tbody tr:hover{
+
+background:#252525;
+
+}
+
+.product-img{
+
+width:60px;
+
+height:60px;
+
+background:white;
+
+border-radius:10px;
+
+object-fit:contain;
+
+padding:4px;
+
+}
+
+.stock-in{
+
+color:#2ecc71;
+
+font-weight:bold;
+
+}
+
+.stock-out{
+
+color:#e74c3c;
+
+font-weight:bold;
+
+}
+
+.date{
+
+color:#bbb;
+
+font-size:13px;
+
+}
+
+.print-btn{
+
+margin-top:20px;
+
+padding:14px 22px;
+
+border:none;
+
+border-radius:12px;
+
+background:#3498db;
+
+color:white;
+
+font-weight:bold;
+
+cursor:pointer;
+
+transition:.3s;
+
+}
+
+.print-btn:hover{
+
+background:#2980b9;
+
+}
+/* Animation */
+
+.fade{
+
+animation:fadeIn .8s ease;
+
+}
+
+@keyframes fadeIn{
+
+from{
+
+opacity:0;
+
+transform:translateY(20px);
+
+}
+
+to{
+
+opacity:1;
+
+transform:translateY(0);
+
+}
+
+}
+
+@media(max-width:768px){
+
+.header{
+
+flex-direction:column;
+
+align-items:flex-start;
+
+}
+
+.filter-bar{
+
+grid-template-columns:1fr;
+
+}
+
+.stats{
+
+grid-template-columns:repeat(2,1fr);
+
+}
+
+}
+
+@media(max-width:480px){
+
+.stats{
+
+grid-template-columns:1fr;
+
+}
+
+.logo{
+
+font-size:28px;
+
+}
+
+}
+
+</style>
+
+</head>
+
+<body class="fade">
+
+<div class="header">
+
+<div class="logo">
+
+📋 Stock History
+
+</div>
+
+<a
+
+href="dashboard.html"
+
+class="back-btn">
+
+⬅ Dashboard
+
+</a>
+
+</div>
+
+<div class="search-box">
+
+<input
+
+type="text"
+
+id="searchInput"
+
+placeholder="🔍 Search Product, Supplier or Date..."
+
+onkeyup="searchHistory()">
+
+</div>
+
+<div class="stats">
+
+<div class="stat-card">
+
+<h3>
+
+Total Entries
+
+</h3>
+
+<h2 id="totalEntries">
+
+0
+
+</h2>
+
+</div>
+
+<div class="stat-card">
+
+<h3>
+
+Total Stock Added
+
+</h3>
+
+<h2 id="totalStockAdded">
+
+0
+
+</h2>
+
+</div>
+
+<div class="stat-card">
+
+<h3>
+
+Today's Entries
+
+</h3>
+
+<h2 id="todayEntries">
+
+0
+
+</h2>
+
+</div>
+
+</div>
+
+<div class="filter-bar">
+
+<input
+
+type="date"
+
+id="dateFilter"
+
+onchange="filterHistory()">
+
+<select
+
+id="productFilter"
+
+onchange="filterHistory()">
+
+<option value="">
+
+All Products
+
+</option>
+
+</select>
+
+<input
+
+type="text"
+
+id="supplierFilter"
+
+placeholder="Supplier Name"
+
+onkeyup="filterHistory()">
+
+</div>
+
+<div class="table-card">
+
+<div class="table-container">
+
+<table>
+
+<thead>
+
+<tr>
+
+<th>Image</th>
+
+<th>Product</th>
+
+<th>Supplier</th>
+
+<th>Qty Added</th>
+
+<th>Old Stock</th>
+
+<th>New Stock</th>
+
+<th>Date</th>
+
+</tr>
+
+</thead>
+
+<tbody id="historyBody">
+
+<tr>
+
+<td colspan="7">
+
+Loading...
+
+</td>
+
+</tr>
+
+</tbody>
+
+</table>
+
+</div>
+
+<button
+
+class="print-btn"
+
+onclick="window.print()">
+
+🖨 Print Stock Report
+
+</button>
+
+</div>
+<script>
+
+let historyData=[];
+
+async function loadHistory(){
+
+try{
+
+const response=
+
+await fetch(
+
+"http://localhost:5000/stock-history"
+
+);
+
+historyData=
+
+await response.json();
+
+renderHistory(historyData);
+
+loadFilters(historyData);
+
+updateStats(historyData);
+
+}
+
+catch(error){
+
+console.error(error);
+
+alert(
+
+"Failed To Load Stock History"
+
+);
+
+}
+
+}
+
+function renderHistory(data){
+
+let html="";
+
+data.forEach(item=>{
+
+const image=
+
+item.product_image
+
+?
+
+`http://localhost:5000/uploads/${item.product_image}`
+
+:
+
+"images/no-image.png";
+
+html+=`
+
+<tr>
+
+<td>
+
+<img
+
+class="product-img"
+
+src="${image}"
+
+onerror="this.src='images/no-image.png'">
+
+</td>
+
+<td>
+
+${item.product_name}
+
+</td>
+
+<td>
+
+${item.supplier || "-"}
+
+</td>
+
+<td class="stock-in">
+
++${item.quantity_added}
+
+</td>
+
+<td>
+
+${item.old_stock}
+
+</td>
+
+<td>
+
+${item.new_stock}
+
+</td>
+
+<td class="date">
+
+${new Date(item.created_at).toLocaleString()}
+
+</td>
+
+</tr>
+
+`;
+
+});
+
+if(html===""){
+
+html=`
+
+<tr>
+
+<td colspan="7">
+
+No Stock History Found
+
+</td>
+
+</tr>
+
+`;
+
+}
+
+document.getElementById(
+
+"historyBody"
+
+).innerHTML=
+
+html;
+
+}
+
+function loadFilters(data){
+
+const select=
+
+document.getElementById(
+
+"productFilter"
+
+);
+
+let products=
+
+[...new Set(data.map(item=>item.product_name))];
+
+select.innerHTML=
+
+'<option value="">All Products</option>';
+
+products.sort().forEach(product=>{
+
+select.innerHTML+=
+
+`<option value="${product}">${product}</option>`;
+
+});
+
+}
+
+function updateStats(data){
+
+document.getElementById(
+
+"totalEntries"
+
+).innerText=
+
+data.length;
+
+const total=
+
+data.reduce(
+
+(sum,item)=>
+
+sum+
+
+Number(item.quantity_added),
+
+0
+
+);
+
+document.getElementById(
+
+"totalStockAdded"
+
+).innerText=
+
+total;
+
+const today=
+
+new Date().toDateString();
+
+document.getElementById(
+
+"todayEntries"
+
+).innerText=
+
+data.filter(item=>
+
+new Date(item.created_at)
+
+.toDateString()===today
+
+).length;
+
+}
+function searchHistory(){
+
+const value=
+
+document.getElementById(
+
+"searchInput"
+
+).value.toLowerCase();
+
+const filtered=
+
+historyData.filter(item=>
+
+(item.product_name||"")
+
+.toLowerCase()
+
+.includes(value)
+
+||
+
+(item.supplier||"")
+
+.toLowerCase()
+
+.includes(value)
+
+||
+
+String(item.id)
+
+.includes(value)
+
+||
+
+new Date(item.created_at)
+
+.toLocaleDateString()
+
+.toLowerCase()
+
+.includes(value)
+
+);
+
+renderHistory(filtered);
+
+}
+
+function filterHistory(){
+
+const product=
+
+document.getElementById(
+
+"productFilter"
+
+).value;
+
+const supplier=
+
+document.getElementById(
+
+"supplierFilter"
+
+).value.toLowerCase();
+
+const date=
+
+document.getElementById(
+
+"dateFilter"
+
+).value;
+
+const filtered=
+
+historyData.filter(item=>{
+
+const matchProduct=
+
+product==="" ||
+
+item.product_name===product;
+
+const matchSupplier=
+
+supplier==="" ||
+
+(item.supplier||"")
+
+.toLowerCase()
+
+.includes(supplier);
+
+let matchDate=true;
+
+if(date){
+
+matchDate=
+
+new Date(item.created_at)
+
+.toISOString()
+
+.slice(0,10)===date;
+
+}
+
+return
+
+matchProduct &&
+
+matchSupplier &&
+
+matchDate;
+
+});
+
+renderHistory(filtered);
+
+}
+
+loadHistory();
+
+</script>
+
+</body>
+
+</html>

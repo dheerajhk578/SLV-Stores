@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Track Order</title>
+
+<style>
+
+body{
+background:#111;
+color:white;
+font-family:Arial,sans-serif;
+padding:15px;
+}
+
+h1{
+text-align:center;
+color:#f5b041;
+margin-bottom:20px;
+}
+
+input{
+width:100%;
+padding:12px;
+border:none;
+border-radius:10px;
+margin-bottom:10px;
+}
+
+button{
+width:100%;
+padding:12px;
+border:none;
+border-radius:10px;
+background:#f39c12;
+color:white;
+font-weight:bold;
+cursor:pointer;
+}
+
+.order-card{
+background:#1c1c1c;
+padding:15px;
+border-radius:12px;
+margin-top:15px;
+}
+
+.pending{
+color:orange;
+}
+
+.accepted{
+color:#3498db;
+}
+
+.packed{
+color:#f1c40f;
+}
+
+.delivered{
+color:#2ecc71;
+}
+
+.cancelled{
+color:red;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<h1>Track Order</h1>
+
+<input
+type="text"
+id="phone"
+placeholder="Enter Mobile Number">
+
+<button
+onclick="trackOrder()">
+
+Track Orders
+
+</button>
+
+<div id="orders"></div>
+
+<script>
+
+async function trackOrder(){
+
+const phone =
+document.getElementById(
+'phone'
+).value;
+
+const response =
+await fetch(
+
+`http://localhost:5000/orders/customer/${phone}`
+
+);
+
+const orders =
+await response.json();
+
+let html = '';
+
+if(orders.length === 0){
+
+html =
+'<h3>No Orders Found</h3>';
+
+}
+else{
+
+orders.forEach(order=>{
+
+const statusClass =
+order.status.toLowerCase().replace(
+/ /g,
+''
+);
+
+html += `
+
+<div class="order-card">
+
+<h2>
+Order #${order.id}
+</h2>
+
+<p>
+Customer:
+${order.customer_name}
+</p>
+
+<p>
+Amount:
+₹${order.grand_total}
+</p>
+
+<p class="${statusClass}">
+
+Status:
+${order.status}
+
+</p>
+
+<p>
+Date:
+${order.created_at}
+</p>
+
+</div>
+
+`;
+
+});
+
+}
+
+document.getElementById(
+'orders'
+).innerHTML =
+html;
+
+}
+
+</script>
+
+</body>
+
+</html>

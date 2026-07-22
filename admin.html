@@ -1,0 +1,1293 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta
+name="viewport"
+content="width=device-width, initial-scale=1.0">
+
+<title>
+
+SLV Product Management
+
+</title>
+
+<style>
+
+*{
+
+margin:0;
+
+padding:0;
+
+box-sizing:border-box;
+
+font-family:Arial,sans-serif;
+
+}
+
+html{
+
+scroll-behavior:smooth;
+
+}
+
+body{
+
+background:#111;
+
+color:#fff;
+
+padding:20px;
+
+padding-bottom:40px;
+
+overflow-x:hidden;
+
+}
+
+.container{
+
+max-width:1200px;
+
+margin:auto;
+
+}
+
+/* Header */
+
+.header{
+
+display:flex;
+
+justify-content:space-between;
+
+align-items:center;
+
+flex-wrap:wrap;
+
+gap:15px;
+
+margin-bottom:25px;
+
+}
+
+.logo{
+
+font-size:32px;
+
+font-weight:bold;
+
+color:#f39c12;
+
+letter-spacing:1px;
+
+}
+
+.back-btn{
+
+text-decoration:none;
+
+background:#f39c12;
+
+color:#111;
+
+padding:12px 22px;
+
+border-radius:10px;
+
+font-weight:bold;
+
+transition:.3s;
+
+}
+
+.back-btn:hover{
+
+background:#ffb84d;
+
+}
+
+/* Form Card */
+
+.form-card{
+
+background:#1c1c1c;
+
+border:2px solid #333;
+
+border-radius:20px;
+
+padding:25px;
+
+box-shadow:0 10px 20px rgba(0,0,0,.35);
+
+margin-bottom:25px;
+
+}
+
+.form-card h2{
+
+text-align:center;
+
+color:#f39c12;
+
+margin-bottom:25px;
+
+}
+
+.form-grid{
+
+display:grid;
+
+grid-template-columns:
+
+repeat(auto-fit,minmax(260px,1fr));
+
+gap:18px;
+
+}
+
+.form-group{
+
+display:flex;
+
+flex-direction:column;
+
+}
+
+.form-group label{
+
+margin-bottom:8px;
+
+font-weight:bold;
+
+color:#f5b041;
+
+}
+
+.form-group input,
+
+.form-group select,
+
+.form-group textarea{
+
+padding:13px;
+
+border:none;
+
+outline:none;
+
+border-radius:10px;
+
+background:#2a2a2a;
+
+color:white;
+
+font-size:15px;
+
+transition:.3s;
+
+}
+
+.form-group input:focus,
+
+.form-group select:focus,
+
+.form-group textarea:focus{
+
+box-shadow:0 0 0 2px #f39c12;
+
+}
+
+.form-group textarea{
+
+height:110px;
+
+resize:none;
+
+}
+/* Image Upload */
+
+.image-section{
+
+margin-top:25px;
+
+padding-top:20px;
+
+border-top:1px solid #333;
+
+}
+
+.image-section h3{
+
+text-align:center;
+
+color:#f39c12;
+
+margin-bottom:20px;
+
+}
+
+.image-preview{
+
+width:220px;
+
+height:220px;
+
+margin:20px auto;
+
+border:2px solid #f39c12;
+
+border-radius:16px;
+
+background:#fff;
+
+display:flex;
+
+justify-content:center;
+
+align-items:center;
+
+overflow:hidden;
+
+}
+
+.image-preview img{
+
+width:100%;
+
+height:100%;
+
+object-fit:contain;
+
+}
+
+/* Buttons */
+
+.button-row{
+
+display:grid;
+
+grid-template-columns:
+
+repeat(auto-fit,minmax(180px,1fr));
+
+gap:15px;
+
+margin-top:25px;
+
+}
+
+.save-btn{
+
+background:#2ecc71;
+
+color:white;
+
+}
+
+.reset-btn{
+
+background:#e67e22;
+
+color:white;
+
+}
+
+.dashboard-btn{
+
+background:#3498db;
+
+color:white;
+
+}
+
+button{
+
+padding:15px;
+
+border:none;
+
+border-radius:12px;
+
+font-size:16px;
+
+font-weight:bold;
+
+cursor:pointer;
+
+transition:.3s;
+
+}
+
+button:hover{
+
+transform:translateY(-2px);
+
+opacity:.95;
+
+}
+
+.status{
+
+margin-top:20px;
+
+text-align:center;
+
+font-size:18px;
+
+font-weight:bold;
+
+color:#f5b041;
+
+}
+
+/* Recent Products */
+
+.recent-card{
+
+background:#1c1c1c;
+
+border:2px solid #333;
+
+border-radius:20px;
+
+padding:25px;
+
+}
+
+.recent-card h2{
+
+color:#f39c12;
+
+margin-bottom:20px;
+
+}
+
+.table-container{
+
+overflow-x:auto;
+
+}
+
+table{
+
+width:100%;
+
+min-width:1000px;
+
+border-collapse:collapse;
+
+}
+
+th{
+
+background:#f39c12;
+
+color:#111;
+
+padding:14px;
+
+text-align:center;
+
+}
+
+td{
+
+padding:12px;
+
+text-align:center;
+
+border-bottom:1px solid #333;
+
+color:#ddd;
+
+}
+
+tr:hover{
+
+background:#252525;
+
+}
+/* Animation */
+
+.fade{
+
+animation:fadeIn .8s ease;
+
+}
+
+@keyframes fadeIn{
+
+from{
+
+opacity:0;
+
+transform:translateY(20px);
+
+}
+
+to{
+
+opacity:1;
+
+transform:translateY(0);
+
+}
+
+}
+
+@media(max-width:768px){
+
+.header{
+
+flex-direction:column;
+
+align-items:flex-start;
+
+}
+
+.form-grid{
+
+grid-template-columns:1fr;
+
+}
+
+.button-row{
+
+grid-template-columns:1fr;
+
+}
+
+}
+
+</style>
+
+</head>
+
+<body class="fade">
+
+<script>
+
+if(!sessionStorage.getItem("loggedIn")){
+
+window.location.href="login.html";
+
+}
+
+</script>
+
+<div class="container">
+
+<div class="header">
+
+<div class="logo">
+
+📦 Product Management
+
+</div>
+
+<a
+
+href="dashboard.html"
+
+class="back-btn">
+
+⬅ Dashboard
+
+</a>
+
+</div>
+
+<div class="form-card">
+
+<h2>
+
+Add New Product
+
+</h2>
+
+<form id="productForm">
+
+<div class="form-grid">
+
+<div class="form-group">
+
+<label>Main Category</label>
+
+<select id="main_category">
+
+<option value="">Select Category</option>
+
+<option>Rice & Grains</option>
+
+<option>Dal & Pulses</option>
+
+<option>Atta & Sooji</option>
+
+<option>Oil & Ghee</option>
+
+<option>Masala & Spices</option>
+
+<option>Tea & Coffee</option>
+
+<option>Biscuits & Snacks</option>
+
+<option>Personal Care</option>
+
+<option>Home Care</option>
+
+<option>Dairy Products</option>
+
+</select>
+
+</div>
+
+<div class="form-group">
+
+<label>Sub Category</label>
+
+<input
+
+type="text"
+
+id="sub_category"
+
+placeholder="Enter Sub Category">
+
+</div>
+
+<div class="form-group">
+
+<label>Product Type</label>
+
+<input
+
+type="text"
+
+id="product_type"
+
+placeholder="Enter Product Type">
+
+</div>
+
+<div class="form-group">
+
+<label>Brand</label>
+
+<input
+
+type="text"
+
+id="brand"
+
+placeholder="Brand Name">
+
+</div>
+
+<div class="form-group">
+
+<label>Product Name</label>
+
+<input
+
+type="text"
+
+id="product_name"
+
+placeholder="Product Name">
+
+</div>
+
+<div class="form-group">
+
+<label>Variant Name</label>
+
+<input
+
+type="text"
+
+id="variant_name"
+
+placeholder="Variant">
+
+</div>
+
+<div class="form-group">
+
+<label>Selling Mode</label>
+
+<select
+
+id="mode"
+
+onchange="toggleModeFields()">
+
+<option value="packed">
+
+Packed
+
+</option>
+
+<option value="loose">
+
+Loose
+
+</option>
+
+</select>
+
+</div>
+
+<div
+
+class="form-group"
+
+id="packSizeSection">
+
+<label>Pack Size</label>
+
+<input
+
+type="text"
+
+id="pack_size"
+
+placeholder="1 Kg / 500 g">
+
+</div>
+
+<div
+
+class="form-group"
+
+id="loosePriceSection"
+
+style="display:none;">
+
+<label>Loose Price / Kg</label>
+
+<input
+
+type="number"
+
+id="loose_price"
+
+placeholder="Price Per Kg">
+
+</div>
+<div class="form-group">
+
+<label>
+
+25 Kg Bag Price
+
+</label>
+
+<input
+
+type="number"
+
+id="bag_25kg_price"
+
+placeholder="25 Kg Bag Price">
+
+</div>
+
+<div class="form-group">
+
+<label>
+
+10 Kg Bag Price
+
+</label>
+
+<input
+
+type="number"
+
+id="bag_10kg_price"
+
+placeholder="10 Kg Bag Price">
+
+</div>
+
+<div class="form-group">
+
+<label>
+
+Cost Price
+
+</label>
+
+<input
+
+type="number"
+
+id="cost_price"
+
+placeholder="Cost Price">
+
+</div>
+
+<div class="form-group">
+
+<label>
+
+Retail Price
+
+</label>
+
+<input
+
+type="number"
+
+id="retail_price"
+
+placeholder="Retail Price">
+
+</div>
+
+<div class="form-group">
+
+<label>
+
+Wholesale Price
+
+</label>
+
+<input
+
+type="number"
+
+id="wholesale_price"
+
+placeholder="Wholesale Price">
+
+</div>
+
+<div class="form-group">
+
+<label>
+
+Stock Quantity
+
+</label>
+
+<input
+
+type="number"
+
+id="stock_quantity"
+
+placeholder="Available Stock">
+
+</div>
+
+<div class="form-group">
+
+<label>
+
+Unit
+
+</label>
+
+<select id="unit">
+
+<option value="Kg">Kg</option>
+
+<option value="Gram">Gram</option>
+
+<option value="Litre">Litre</option>
+
+<option value="ml">ml</option>
+
+<option value="Piece">Piece</option>
+
+<option value="Packet">Packet</option>
+
+<option value="Box">Box</option>
+
+</select>
+
+</div>
+
+<div class="form-group">
+
+<label>
+
+Product Description
+
+</label>
+
+<textarea
+
+id="description"
+
+placeholder="Enter Product Description">
+
+</textarea>
+
+</div>
+
+</div>
+
+<div class="image-section">
+
+<h3>
+
+📷 Product Image
+
+</h3>
+
+<div class="form-group">
+
+<input
+
+type="file"
+
+id="productImage"
+
+accept="image/*"
+
+onchange="previewImage(event)">
+
+</div>
+
+<div class="image-preview">
+
+<img
+
+id="imagePreview"
+
+src="images/no-image.png"
+
+alt="Preview">
+
+</div>
+
+</div>
+
+<div class="button-row">
+
+<button
+
+type="button"
+
+class="save-btn"
+
+onclick="addProduct()">
+
+➕ Save Product
+
+</button>
+
+<button
+
+type="reset"
+
+class="reset-btn">
+
+🔄 Reset Form
+
+</button>
+
+<button
+
+type="button"
+
+class="dashboard-btn"
+
+onclick="location.href='dashboard.html'">
+
+🏠 Dashboard
+
+</button>
+
+</div>
+
+<div
+
+class="status"
+
+id="status">
+
+Ready to add product
+
+</div>
+
+</form>
+
+</div>
+
+<div class="recent-card">
+
+<h2>
+
+📋 Recently Added Products
+
+</h2>
+
+<div class="table-container">
+
+<table>
+
+<thead>
+
+<tr>
+
+<th>Image</th>
+
+<th>Product</th>
+
+<th>Brand</th>
+
+<th>Category</th>
+
+<th>Retail</th>
+
+<th>Stock</th>
+
+</tr>
+
+</thead>
+
+<tbody id="recentProducts">
+
+<tr>
+
+<td colspan="6">
+
+Loading products...
+
+</td>
+
+</tr>
+
+</tbody>
+
+</table>
+
+</div>
+
+</div>
+<script>
+
+let products=[];
+
+function toggleModeFields(){
+
+const mode=
+
+document.getElementById("mode").value;
+
+document.getElementById(
+
+"packSizeSection"
+
+).style.display=
+
+mode==="packed"
+
+?
+
+"block"
+
+:
+
+"none";
+
+document.getElementById(
+
+"loosePriceSection"
+
+).style.display=
+
+mode==="loose"
+
+?
+
+"block"
+
+:
+
+"none";
+
+}
+
+function previewImage(event){
+
+const file=
+
+event.target.files[0];
+
+if(!file) return;
+
+const reader=
+
+new FileReader();
+
+reader.onload=function(e){
+
+document.getElementById(
+
+"imagePreview"
+
+).src=
+
+e.target.result;
+
+};
+
+reader.readAsDataURL(file);
+
+}
+
+async function loadRecentProducts(){
+
+try{
+
+const response=
+
+await fetch(
+
+"http://localhost:5000/products"
+
+);
+
+products=
+
+await response.json();
+
+let html="";
+
+products.slice(0,10).forEach(product=>{
+
+const image=
+
+product.product_image
+
+?
+
+`http://localhost:5000/uploads/${product.product_image}`
+
+:
+
+"images/no-image.png";
+
+html+=`
+
+<tr>
+
+<td>
+
+<img
+
+src="${image}"
+
+style="width:50px;height:50px;border-radius:8px;object-fit:cover;"
+
+onerror="this.src='images/no-image.png'">
+
+</td>
+
+<td>${product.product_name}</td>
+
+<td>${product.brand||"-"}</td>
+
+<td>${product.main_category}</td>
+
+<td>₹${product.retail_price}</td>
+
+<td>${product.stock_quantity}</td>
+
+</tr>
+
+`;
+
+});
+
+document.getElementById(
+
+"recentProducts"
+
+).innerHTML=
+
+html||'<tr><td colspan="6">No Products Found</td></tr>';
+
+}
+
+catch(error){
+
+console.error(error);
+
+}
+
+}
+
+async function addProduct(){
+
+try{
+
+document.getElementById(
+
+"status"
+
+).innerText=
+
+"Uploading Image...";
+
+let imageName="";
+
+const file=
+
+document.getElementById(
+
+"productImage"
+
+).files[0];
+
+if(file){
+
+const formData=
+
+new FormData();
+
+formData.append(
+
+"image",
+
+file
+
+);
+
+const upload=
+
+await fetch(
+
+"http://localhost:5000/upload",
+
+{
+
+method:"POST",
+
+body:formData
+
+}
+
+);
+
+const image=
+
+await upload.json();
+
+imageName=image.filename;
+
+}
+
+const product={
+
+main_category:main_category.value,
+sub_category:sub_category.value,
+product_type:product_type.value,
+brand:brand.value,
+product_name:product_name.value,
+variant_name:variant_name.value,
+mode:mode.value,
+pack_size:pack_size.value,
+bag_25kg_price:bag_25kg_price.value,
+bag_10kg_price:bag_10kg_price.value,
+loose_price:loose_price.value,
+cost_price:cost_price.value,
+retail_price:retail_price.value,
+wholesale_price:wholesale_price.value,
+stock_quantity:stock_quantity.value,
+unit:unit.value,
+description:description.value,
+product_image:imageName
+
+};
+
+await fetch(
+
+"http://localhost:5000/products",
+
+{
+
+method:"POST",
+
+headers:{
+
+"Content-Type":"application/json"
+
+},
+
+body:JSON.stringify(product)
+
+}
+
+);
+
+document.getElementById(
+
+"status"
+
+).innerText=
+
+"✅ Product Added Successfully";
+
+document.getElementById(
+
+"productForm"
+
+).reset();
+
+document.getElementById(
+
+"imagePreview"
+
+).src=
+
+"images/no-image.png";
+
+toggleModeFields();
+
+loadRecentProducts();
+
+}
+
+catch(error){
+
+console.error(error);
+
+document.getElementById(
+
+"status"
+
+).innerText=
+
+"❌ Failed To Add Product";
+
+alert(
+
+"Unable to save product."
+
+);
+
+}
+
+}
+
+toggleModeFields();
+
+loadRecentProducts();
+
+</script>
+
+</body>
+
+</html>

@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+<title>Customers</title>
+
+<style>
+
+body{
+background:#111;
+color:white;
+font-family:Arial;
+padding:20px;
+}
+
+h1{
+color:#f39c12;
+text-align:center;
+margin-bottom:20px;
+}
+
+table{
+width:100%;
+border-collapse:collapse;
+background:#1c1c1c;
+}
+
+th,td{
+border:1px solid #333;
+padding:12px;
+text-align:left;
+}
+
+th{
+color:#f5b041;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<h1>Customer Management</h1>
+
+<table>
+
+<thead>
+
+<tr>
+
+<th>Name</th>
+<th>Phone</th>
+<th>Orders</th>
+<th>Total Spent</th>
+<th>Last Order</th>
+
+</tr>
+
+</thead>
+
+<tbody id="customerBody">
+<script>
+
+async function loadCustomers(){
+
+const response =
+
+await fetch(
+'http://localhost:5000/customers'
+);
+
+const customers =
+await response.json();
+
+let html = '';
+
+customers.forEach(customer=>{
+
+html += `
+
+<tr>
+
+<td>
+
+<a
+href="customer-history.html?phone=${customer.customer_phone}"
+style="
+color:#f39c12;
+text-decoration:none;
+">
+
+${customer.customer_name}
+
+</a>
+
+</td>
+
+<td>
+${customer.customer_phone}
+</td>
+
+<td>
+${customer.total_orders}
+</td>
+
+<td>
+₹${customer.total_spent}
+</td>
+
+<td>
+${customer.last_order}
+</td>
+
+</tr>
+
+`;
+
+});
+
+document.getElementById(
+'customerBody'
+).innerHTML =
+html;
+
+}
+
+loadCustomers();
+
+</script>
+
+</body>
+
+</html>
+</tbody>
+
+</table>

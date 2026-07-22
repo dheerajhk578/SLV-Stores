@@ -1,0 +1,978 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0">
+
+<title>
+
+Edit Product
+
+</title>
+
+<style>
+
+*{
+
+margin:0;
+
+padding:0;
+
+box-sizing:border-box;
+
+font-family:Arial,sans-serif;
+
+}
+
+body{
+
+background:#111;
+
+color:white;
+
+padding:20px;
+
+}
+
+.container{
+
+max-width:750px;
+
+margin:auto;
+
+background:#1c1c1c;
+
+padding:25px;
+
+border-radius:15px;
+
+box-shadow:0 0 15px rgba(255,165,0,.25);
+
+}
+
+h2{
+
+text-align:center;
+
+color:#f39c12;
+
+margin-bottom:25px;
+
+}
+
+.form-group{
+
+margin-bottom:18px;
+
+}
+
+label{
+
+display:block;
+
+margin-bottom:8px;
+
+font-weight:bold;
+
+color:#f5b041;
+
+}
+
+input,
+select,
+textarea{
+
+width:100%;
+
+padding:12px;
+
+border:none;
+
+border-radius:8px;
+
+background:#2c2c2c;
+
+color:white;
+
+font-size:15px;
+
+}
+
+textarea{
+
+height:100px;
+
+resize:none;
+
+}
+
+button{
+
+width:100%;
+
+padding:15px;
+
+background:#f39c12;
+
+color:black;
+
+border:none;
+
+border-radius:10px;
+
+font-size:17px;
+
+font-weight:bold;
+
+cursor:pointer;
+
+margin-top:20px;
+
+transition:.3s;
+
+}
+
+button:hover{
+
+background:#ffb84d;
+
+}
+
+.image-box{
+
+text-align:center;
+
+margin-bottom:20px;
+
+}
+
+.image-box img{
+
+width:220px;
+
+height:220px;
+
+object-fit:cover;
+
+border-radius:12px;
+
+border:2px solid #f39c12;
+
+background:white;
+
+}
+
+.status{
+
+margin-top:15px;
+
+text-align:center;
+
+color:#f5b041;
+
+font-weight:bold;
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<script>
+
+if(!sessionStorage.getItem("loggedIn")){
+
+window.location.href="login.html";
+
+}
+
+</script>
+
+<div class="container">
+
+<h2>
+
+Edit Product
+
+</h2>
+
+<div class="image-box">
+
+<h3 style="margin-bottom:15px;color:#f39c12;">
+
+Current Product Image
+
+</h3>
+
+<img
+
+id="preview"
+
+src="images/no-image.png">
+
+</div>
+
+<div class="form-group">
+
+<label>
+
+Change Product Image
+
+</label>
+
+<input
+
+type="file"
+
+id="productImage"
+
+accept="image/*"
+
+capture="environment"
+
+onchange="previewImage(event)">
+
+</div>
+
+<div class="form-group">
+
+<label>
+
+Main Category
+
+</label>
+
+<select id="main_category">
+
+<option value="">Select Main Category</option>
+
+<option>Rice & Grains</option>
+
+<option>Dal & Pulses</option>
+
+<option>Atta & Sooji</option>
+
+<option>Oil & Ghee</option>
+
+<option>Sugar Salt & Jaggery</option>
+
+<option>Masala & Spices</option>
+
+<option>Dry Fruits</option>
+
+<option>Tea Coffee & Beverages</option>
+
+<option>Biscuits & Snacks</option>
+
+<option>Personal Care</option>
+
+<option>Home Care</option>
+
+<option>Stationery</option>
+
+<option>Pooja Items</option>
+
+<option>Dairy Products</option>
+
+<option>Baby Care</option>
+
+<option>OTC Products</option>
+
+</select>
+
+</div>
+<div class="form-group">
+
+<label>
+
+Sub Category
+
+</label>
+
+<input
+
+type="text"
+
+id="sub_category"
+
+placeholder="Sub Category">
+
+</div>
+
+<div class="form-group">
+
+<label>
+
+Product Type
+
+</label>
+
+<input
+
+type="text"
+
+id="product_type"
+
+placeholder="Product Type">
+
+</div>
+
+<div class="form-group">
+
+<label>
+
+Brand
+
+</label>
+
+<input
+
+type="text"
+
+id="brand"
+
+placeholder="Brand">
+
+</div>
+
+<div class="form-group">
+
+<label>
+
+Product Name
+
+</label>
+
+<input
+
+type="text"
+
+id="name"
+
+placeholder="Product Name">
+
+</div>
+
+<div class="form-group">
+
+<label>
+
+Variant Name
+
+</label>
+
+<input
+
+type="text"
+
+id="variant_name"
+
+placeholder="Variant Name">
+
+</div>
+
+<div class="form-group">
+
+<label>
+
+Selling Mode
+
+</label>
+
+<select
+
+id="mode"
+
+onchange="toggleModeFields()">
+
+<option value="packed">
+
+Packed Product
+
+</option>
+
+<option value="loose">
+
+Loose Product
+
+</option>
+
+</select>
+
+</div>
+
+<div class="form-group">
+
+<label>
+
+Pack Size
+
+</label>
+
+<input
+
+type="number"
+
+<div id="packSizeSection">
+
+<label>
+
+Pack Size
+
+</label>
+
+<input
+
+type="number"
+
+id="pack_size"
+
+placeholder="Pack Size">
+
+</div>
+<div id="loosePriceSection">
+
+<label>
+
+25 Kg Bag Price
+
+</label>
+
+<input
+type="number"
+id="bag25Price">
+
+<label>
+
+10 Kg Bag Price
+
+</label>
+
+<input
+type="number"
+id="bag10Price">
+
+<label>
+
+Loose Price / Kg
+
+</label>
+
+<input
+type="number"
+id="loosePrice">
+
+</div>
+
+placeholder="Pack Size">
+
+</div>
+
+<div class="form-group">
+
+<label>
+
+25 Kg Bag Price
+
+</label>
+
+<input
+
+type="number"
+
+id="bag25Price"
+
+placeholder="25 Kg Bag Price">
+
+</div>
+
+<div class="form-group">
+
+<label>
+
+10 Kg Bag Price
+
+</label>
+
+<input
+
+type="number"
+
+id="bag10Price"
+
+placeholder="10 Kg Bag Price">
+
+</div>
+
+<div class="form-group">
+
+<label>
+
+Loose Price (Per Kg)
+
+</label>
+
+<input
+
+type="number"
+
+id="loosePrice"
+
+placeholder="Loose Price">
+
+</div>
+
+<div class="form-group">
+
+<label>
+
+Cost Price
+
+</label>
+
+<input
+
+type="number"
+
+id="cost_price"
+
+placeholder="Cost Price">
+
+</div>
+
+<div class="form-group">
+
+<label>
+
+Retail Price
+
+</label>
+
+<input
+
+type="number"
+
+id="retail_price"
+
+placeholder="Retail Price">
+
+</div>
+
+<div class="form-group">
+
+<label>
+
+Wholesale Price
+
+</label>
+
+<input
+
+type="number"
+
+id="wholesale_price"
+
+placeholder="Wholesale Price">
+
+</div>
+
+<div class="form-group">
+
+<label>
+
+Stock Quantity
+
+</label>
+
+<input
+
+type="number"
+
+id="stock"
+
+placeholder="Stock Quantity">
+
+</div>
+
+<div class="form-group">
+
+<label>
+
+Unit
+
+</label>
+
+<input
+
+type="text"
+
+id="unit"
+
+placeholder="Kg / Litre / Pcs">
+
+</div>
+
+<div class="form-group">
+
+<label>
+
+Description
+
+</label>
+
+<textarea
+
+id="description"
+
+placeholder="Product Description">
+
+</textarea>
+
+</div>
+
+<button
+onclick="updateProduct()">
+
+💾 Update Product
+
+</button>
+
+<div
+
+class="status"
+
+id="status">
+
+Ready
+
+</div>
+
+</div>
+<script>
+
+const params = new URLSearchParams(window.location.search);
+
+const productId = params.get("id");
+
+let currentImage = "";
+
+function previewImage(event){
+
+const file = event.target.files[0];
+
+if(!file) return;
+
+const reader = new FileReader();
+
+reader.onload = function(e){
+
+document.getElementById("preview").src = e.target.result;
+
+}
+
+reader.readAsDataURL(file);
+
+}
+
+async function loadProduct(){
+
+try{
+
+const response =
+
+await fetch(
+
+`http://localhost:5000/products/${productId}`
+
+);
+
+const product =
+
+await response.json();
+
+currentImage =
+
+product.product_image || "";
+
+document.getElementById("main_category").value =
+product.main_category || "";
+
+document.getElementById("sub_category").value =
+product.sub_category || "";
+
+document.getElementById("product_type").value =
+product.product_type || "";
+
+document.getElementById("brand").value =
+product.brand || "";
+
+document.getElementById("name").value =
+product.product_name || "";
+
+document.getElementById("variant_name").value =
+product.variant_name || "";
+
+document.getElementById("mode").value =
+product.mode || "packed";
+toggleModeFields();
+document.getElementById("pack_size").value =
+product.pack_size || "";
+
+document.getElementById("bag25Price").value =
+product.bag_25kg_price || "";
+
+document.getElementById("bag10Price").value =
+product.bag_10kg_price || "";
+
+document.getElementById("loosePrice").value =
+product.loose_price || "";
+
+document.getElementById("cost_price").value =
+product.cost_price || "";
+
+document.getElementById("retail_price").value =
+product.retail_price || "";
+
+document.getElementById("wholesale_price").value =
+product.wholesale_price || "";
+
+document.getElementById("stock").value =
+product.stock_quantity || "";
+
+document.getElementById("unit").value =
+product.unit || "";
+
+document.getElementById("description").value =
+product.description || "";
+
+if(currentImage){
+
+document.getElementById("preview").src =
+
+`http://localhost:5000/uploads/${currentImage}`;
+
+}
+
+}
+catch(error){
+
+console.error(error);
+
+alert("Failed To Load Product");
+
+}
+
+}
+function toggleModeFields(){
+
+const mode=
+
+document.getElementById("mode").value;
+
+if(mode==="packed"){
+
+document.getElementById(
+
+"packSizeSection"
+
+).style.display="block";
+
+document.getElementById(
+
+"loosePriceSection"
+
+).style.display="none";
+
+}
+
+else{
+
+document.getElementById(
+
+"packSizeSection"
+
+).style.display="none";
+
+document.getElementById(
+
+"loosePriceSection"
+
+).style.display="block";
+
+}
+
+}
+async function updateProduct(){
+
+try{
+
+document.getElementById("status").innerText="Updating Product...";
+
+let imageName=currentImage;
+
+const imageFile=
+
+document.getElementById("productImage").files[0];
+
+if(imageFile){
+
+const formData=new FormData();
+
+formData.append("image",imageFile);
+
+const uploadResponse=
+
+await fetch(
+
+"http://localhost:5000/upload",
+
+{
+
+method:"POST",
+
+body:formData
+
+}
+
+);
+
+const uploadResult=
+
+await uploadResponse.json();
+
+imageName=uploadResult.filename;
+
+}
+
+const updatedProduct={
+
+main_category:
+document.getElementById("main_category").value,
+
+sub_category:
+document.getElementById("sub_category").value,
+
+product_type:
+document.getElementById("product_type").value,
+
+brand:
+document.getElementById("brand").value,
+
+product_name:
+document.getElementById("name").value,
+
+variant_name:
+document.getElementById("variant_name").value,
+
+mode:
+document.getElementById("mode").value,
+
+pack_size:
+document.getElementById("pack_size").value,
+
+bag_25kg_price:
+document.getElementById("bag25Price").value || null,
+
+bag_10kg_price:
+document.getElementById("bag10Price").value || null,
+
+loose_price:
+document.getElementById("loosePrice").value || null,
+
+cost_price:
+document.getElementById("cost_price").value || 0,
+
+retail_price:
+document.getElementById("retail_price").value || 0,
+
+wholesale_price:
+document.getElementById("wholesale_price").value || 0,
+
+stock_quantity:
+document.getElementById("stock").value || 0,
+
+unit:
+document.getElementById("unit").value,
+
+description:
+document.getElementById("description").value,
+
+product_image:
+imageName
+
+};
+
+const response =
+
+await fetch(
+
+`http://localhost:5000/products/${productId}`,
+
+{
+
+method:"PUT",
+
+headers:{
+
+"Content-Type":"application/json"
+
+},
+
+body:JSON.stringify(updatedProduct)
+
+}
+
+);
+
+const result =
+
+await response.json();
+
+console.log(result);
+
+if(!response.ok){
+
+console.log(result);
+
+alert(JSON.stringify(result));
+
+return;
+
+}
+document.getElementById("status").innerText=
+
+"✅ Product Updated Successfully";
+
+alert("Product Updated Successfully");
+
+window.location.href="dashboard.html";
+
+}
+
+catch(error){
+
+console.error(error);
+
+document.getElementById("status").innerText=
+
+"❌ Failed To Update Product";
+
+alert(error);
+
+}
+
+}
+
+loadProduct();
+
+</script>
+
+</body>
+
+</html>

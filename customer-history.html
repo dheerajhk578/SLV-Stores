@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+<title>Customer History</title>
+
+<style>
+
+body{
+background:#111;
+color:white;
+font-family:Arial;
+padding:20px;
+}
+
+h1{
+color:#f39c12;
+margin-bottom:20px;
+}
+
+table{
+width:100%;
+border-collapse:collapse;
+background:#1c1c1c;
+}
+
+th,
+td{
+border:1px solid #333;
+padding:12px;
+}
+
+th{
+color:#f5b041;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<h1>
+Customer Purchase History
+</h1>
+
+<div id="customerInfo"></div>
+
+<br>
+
+<table>
+
+<thead>
+
+<tr>
+
+<th>Invoice</th>
+<th>Amount</th>
+<th>Date</th>
+
+</tr>
+
+</thead>
+
+<tbody id="historyBody">
+<script>
+
+const params =
+
+new URLSearchParams(
+window.location.search
+);
+
+const phone =
+
+params.get('phone');
+
+async function loadHistory(){
+
+const response =
+
+await fetch(
+`http://localhost:5000/customer-history/${phone}`
+);
+
+const bills =
+await response.json();
+
+let html = '';
+
+let totalSpent = 0;
+
+bills.forEach(bill=>{
+
+totalSpent +=
+Number(bill.total_amount);
+
+html += `
+
+<tr>
+
+<td>
+${bill.invoice_number}
+</td>
+
+<td>
+₹${bill.total_amount}
+</td>
+
+<td>
+${bill.created_at}
+</td>
+
+</tr>
+
+`;
+
+});
+
+document.getElementById(
+'historyBody'
+).innerHTML =
+html;
+
+document.getElementById(
+'customerInfo'
+).innerHTML =
+
+`
+<h3>
+Phone:
+${phone}
+</h3>
+
+<h3>
+Orders:
+${bills.length}
+</h3>
+
+<h3>
+Total Spent:
+₹${totalSpent.toFixed(2)}
+</h3>
+`;
+
+}
+
+loadHistory();
+
+</script>
+
+</body>
+
+</html>
+</tbody>
+
+</table>

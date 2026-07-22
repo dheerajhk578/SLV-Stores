@@ -1,0 +1,756 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>SLV Stores | Billing</title>
+
+    <link rel="stylesheet"
+          href="billing.css">
+
+</head>
+
+<body>
+
+    <div class="billing-container">
+
+        <!-- =========================================
+             HEADER
+        ========================================== -->
+
+        <header class="billing-header">
+
+            <div class="store-section">
+
+                <img src="images/Logo.jpeg"
+                     class="store-logo"
+                     alt="SLV Stores">
+
+                <div>
+
+                    <h1>SLV PROVISION STORE</h1>
+
+                    <p>
+                        Complete Grocery & Household Store
+                        <br>
+                        Turuvekere, Karnataka
+                    </p>
+
+                </div>
+
+            </div>
+
+            <div class="invoice-section">
+
+                <h2>TAX INVOICE</h2>
+
+                <table>
+
+                    <tr>
+
+                        <td>
+                            <b>Invoice No</b>
+                        </td>
+
+                        <td id="invoiceNumber">
+                            ----
+                        </td>
+
+                    </tr>
+
+                    <tr>
+
+                        <td>
+                            <b>Date</b>
+                        </td>
+
+                        <td id="billDate">
+                            --
+                        </td>
+
+                    </tr>
+
+                    <tr>
+
+                        <td>
+                            <b>Time</b>
+                        </td>
+
+                        <td id="billTime">
+                            --
+                        </td>
+
+                    </tr>
+
+                </table>
+
+            </div>
+
+        </header>
+
+        <!-- =========================================
+             CUSTOMER DETAILS
+        ========================================== -->
+
+        <section class="customer-card">
+
+            <h2>Customer Details</h2>
+
+            <div class="customer-grid">
+
+                <div>
+
+                    <label>
+                        Customer Name
+                    </label>
+
+                    <input
+                        type="text"
+                        id="customerName"
+                        placeholder="Enter Customer Name">
+
+                </div>
+
+                <div>
+
+                    <label>
+                        Mobile Number
+                    </label>
+
+                    <input
+                        type="text"
+                        id="customerPhone"
+                        maxlength="10"
+                        placeholder="Enter Mobile Number">
+
+                </div>
+
+            </div>
+
+        </section>
+
+        <!-- =========================================
+             CUSTOMER HISTORY
+        ========================================== -->
+
+        <section class="customer-history">
+
+            <h2>Customer Purchase History</h2>
+
+            <div class="history-summary">
+
+                <div class="history-card">
+
+                    <h4>Total Bills</h4>
+
+                    <p id="totalBills">0</p>
+
+                </div>
+
+                <div class="history-card">
+
+                    <h4>Total Purchase</h4>
+
+                    <p id="totalPurchase">
+                        ₹0.00
+                    </p>
+
+                </div>
+
+                <div class="history-card">
+
+                    <h4>Last Purchase</h4>
+
+                    <p id="lastPurchase">
+                        --
+                    </p>
+
+                </div>
+
+            </div>
+
+            <div id="customerHistory">
+
+                <p>No Purchase History</p>
+
+            </div>
+
+        </section>
+
+        <!-- =========================================
+             BILLING MODE
+        ========================================== -->
+
+        <section class="billing-mode">
+
+            <h2>Billing Mode</h2>
+
+            <div class="mode-buttons">
+
+                <label>
+
+                    <input
+                        type="radio"
+                        name="billingMode"
+                        value="Retail"
+                        checked
+                        onchange="changeBillingMode()">
+
+                    Retail
+
+                </label>
+
+                <label>
+
+                    <input
+                        type="radio"
+                        name="billingMode"
+                        value="Wholesale"
+                        onchange="changeBillingMode()">
+
+                    Wholesale
+
+                </label>
+
+            </div>
+
+        </section>
+                <!-- =========================================
+             PRODUCT SEARCH
+        ========================================== -->
+
+        <section class="product-search">
+
+            <h2>Search Product</h2>
+
+            <div class="search-container">
+
+                <input
+                    type="text"
+                    id="productSearch"
+                    placeholder="Search Product / Brand / Variant">
+
+                <div
+                    id="searchResults"
+                    class="search-results">
+
+                </div>
+
+            </div>
+
+        </section>
+
+        <!-- =========================================
+             SELECTED PRODUCT
+        ========================================== -->
+
+        <section class="selected-product">
+
+            <h2>Selected Product</h2>
+
+            <form id="productForm">
+
+                <div class="selected-grid">
+
+                    <div>
+
+                        <label>
+                            Product Name
+                        </label>
+
+                        <input
+                            type="text"
+                            id="productName"
+                            readonly>
+
+                    </div>
+
+                    <div>
+
+                        <label>
+                            Brand
+                        </label>
+
+                        <input
+                            type="text"
+                            id="productBrand"
+                            readonly>
+
+                    </div>
+
+                    <div>
+
+                        <label>
+                            Variant
+                        </label>
+
+                        <input
+                            type="text"
+                            id="productVariant"
+                            readonly>
+
+                    </div>
+
+                    <div>
+
+                        <label>
+                            Unit
+                        </label>
+
+                        <input
+                            type="text"
+                            id="productUnit"
+                            readonly>
+
+                    </div>
+
+                </div>
+
+                <div class="price-row">
+
+                    <div>
+
+                        <label>
+                            Retail Price
+                        </label>
+
+                        <input
+                            type="text"
+                            id="retailPrice"
+                            readonly>
+
+                    </div>
+
+                    <div>
+
+                        <label>
+                            Wholesale Price
+                        </label>
+
+                        <input
+                            type="text"
+                            id="wholesalePrice"
+                            readonly>
+
+                    </div>
+
+                    <div>
+
+                        <label>
+                            Selling Price
+                        </label>
+
+                        <input
+                            type="number"
+                            id="sellingPrice">
+
+                    </div>
+
+                </div>
+
+                <!-- =============================
+                     QUANTITY
+                ============================== -->
+
+                <div class="quantity-box">
+
+                    <button
+                        type="button"
+                        id="minusBtn">
+
+                        -
+
+                    </button>
+
+                    <input
+                        type="number"
+                        id="quantity"
+                        value="1"
+                        min="1">
+
+                    <button
+                        type="button"
+                        id="plusBtn">
+
+                        +
+
+                    </button>
+
+                </div>
+
+                <button
+                    type="button"
+                    id="addItemBtn">
+
+                    Add Item To Bill
+
+                </button>
+
+            </form>
+
+        </section>
+
+        <!-- =========================================
+             BILL ITEMS
+        ========================================== -->
+
+        <section class="bill-section">
+
+            <h2>Bill Items</h2>
+
+            <div class="table-container">
+
+                <table id="billTable">
+
+                    <thead>
+
+                        <tr>
+
+                            <th>Product</th>
+
+                            <th>Brand</th>
+
+                            <th>Qty</th>
+
+                            <th>Unit</th>
+
+                            <th>Price</th>
+
+                            <th>Total</th>
+
+                            <th>Action</th>
+
+                        </tr>
+
+                    </thead>
+
+                    <tbody id="billItems">
+
+                        <tr>
+
+                            <td
+                                colspan="7"
+                                style="text-align:center;
+                                       padding:30px;">
+
+                                No Products Added
+
+                            </td>
+
+                        </tr>
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </section>
+                <!-- =========================================
+             BILL SUMMARY
+        ========================================== -->
+
+        <section class="summary-section">
+
+            <h2>Bill Summary</h2>
+
+            <div class="summary-card">
+
+                <div class="summary-row">
+
+                    <span>
+
+                        Total Items
+
+                    </span>
+
+                    <span id="itemCount">
+
+                        0
+
+                    </span>
+
+                </div>
+
+                <div class="summary-row">
+
+                    <span>
+
+                        Sub Total
+
+                    </span>
+
+                    <span id="subTotal">
+
+                        ₹0.00
+
+                    </span>
+
+                </div>
+
+                <div class="grand">
+
+                    Grand Total
+
+                    <br>
+
+                    <span id="grandTotal">
+
+                        ₹0.00
+
+                    </span>
+
+                </div>
+
+            </div>
+
+        </section>
+
+        <!-- =========================================
+             ACTION BUTTONS
+        ========================================== -->
+
+        <section class="button-section">
+
+            <button
+                class="btn generate-btn"
+                id="generateBillBtn">
+
+                Generate Bill (F2)
+
+            </button>
+
+            <button
+                class="btn print-btn"
+                id="printBillBtn">
+
+                Print Bill (F4)
+
+            </button>
+
+            <button
+                class="btn whatsapp-btn"
+                onclick="sendWhatsAppBill()">
+
+                WhatsApp Bill
+
+            </button>
+
+            <button
+                class="btn new-btn"
+                id="newBillBtn">
+
+                New Bill (F6)
+
+            </button>
+
+            <button
+                class="btn back-btn"
+                onclick="history.back()">
+
+                Back
+
+            </button>
+
+        </section>
+
+        <!-- =========================================
+             INVOICE PREVIEW
+        ========================================== -->
+
+        <section
+            class="invoice-preview"
+            id="invoicePreview">
+
+            <div class="invoice-paper">
+
+                <div class="invoice-header">
+
+                    <img
+                        src="images/Logo.jpeg"
+                        class="invoice-logo"
+                        alt="Logo">
+
+                    <h2>
+
+                        SLV PROVISION STORE
+
+                    </h2>
+
+                    <p>
+
+                        Grocery & Household Store
+
+                        <br>
+
+                        Turuvekere, Karnataka
+
+                    </p>
+
+                </div>
+
+                <div class="invoice-details">
+
+                    <p>
+
+                        <b>
+
+                            Invoice No :
+
+                        </b>
+
+                        <span id="previewInvoiceNo">
+
+                        </span>
+
+                    </p>
+
+                    <p>
+
+                        <b>
+
+                            Date :
+
+                        </b>
+
+                        <span id="previewDate">
+
+                        </span>
+
+                    </p>
+
+                    <p>
+
+                        <b>
+
+                            Time :
+
+                        </b>
+
+                        <span id="previewTime">
+
+                        </span>
+
+                    </p>
+
+                    <p>
+
+                        <b>
+
+                            Customer :
+
+                        </b>
+
+                        <span id="previewCustomer">
+
+                        </span>
+
+                    </p>
+
+                    <p>
+
+                        <b>
+
+                            Mobile :
+
+                        </b>
+
+                        <span id="previewPhone">
+
+                        </span>
+
+                    </p>
+
+                </div>
+
+                <table class="invoice-table">
+
+                    <thead>
+
+                        <tr>
+
+                            <th>
+
+                                Product
+
+                            </th>
+
+                            <th>
+
+                                Qty
+
+                            </th>
+
+                            <th>
+
+                                Rate
+
+                            </th>
+
+                            <th>
+
+                                Total
+
+                            </th>
+
+                        </tr>
+
+                    </thead>
+
+                    <tbody id="previewItems">
+
+                    </tbody>
+
+                </table>
+
+                <div class="invoice-total">
+
+                    <h2>
+
+                        Grand Total
+
+                    </h2>
+
+                    <h1 id="previewGrandTotal">
+
+                        ₹0.00
+
+                    </h1>
+
+                </div>
+
+                <hr
+                    style="margin:20px 0;">
+
+                <p
+                    style="text-align:center;">
+
+                    Thank You
+
+                    <br>
+
+                    Visit Again
+
+                </p>
+
+            </div>
+
+        </section>
+
+        <!-- =========================================
+             JAVASCRIPT
+        ========================================== -->
+
+        <script src="billing-api.js"></script>
+
+        <script src="billing.js"></script>
+
+    </div>
+    </body>
+
+</html>

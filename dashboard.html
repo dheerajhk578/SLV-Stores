@@ -1,0 +1,1802 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta
+name="viewport"
+content="width=device-width, initial-scale=1.0">
+
+<title>
+
+SLV Dashboard
+
+</title>
+
+<style>
+
+*{
+
+margin:0;
+
+padding:0;
+
+box-sizing:border-box;
+
+font-family:Arial,sans-serif;
+
+}
+
+html{
+
+scroll-behavior:smooth;
+
+}
+
+body{
+
+background:#111;
+
+color:white;
+
+padding:20px;
+
+padding-bottom:40px;
+
+overflow-x:hidden;
+
+}
+
+/* Header */
+
+.header{
+
+display:flex;
+
+justify-content:space-between;
+
+align-items:center;
+
+margin-bottom:25px;
+
+gap:15px;
+
+flex-wrap:wrap;
+
+}
+
+.logo{
+
+font-size:32px;
+
+font-weight:bold;
+
+color:#f39c12;
+
+}
+
+.logout-btn{
+
+background:#e74c3c;
+
+color:white;
+
+border:none;
+
+padding:12px 18px;
+
+border-radius:10px;
+
+font-weight:bold;
+
+cursor:pointer;
+
+transition:.3s;
+
+}
+
+.logout-btn:hover{
+
+background:#c0392b;
+
+}
+
+/* Welcome */
+
+.welcome{
+
+background:linear-gradient(135deg,#1b1b1b,#2b2b2b);
+
+border:2px solid #333;
+
+border-radius:20px;
+
+padding:25px;
+
+margin-bottom:25px;
+
+display:flex;
+
+justify-content:space-between;
+
+align-items:center;
+
+gap:20px;
+
+flex-wrap:wrap;
+
+box-shadow:0 10px 20px rgba(0,0,0,.25);
+
+}
+
+.welcome h2{
+
+color:#f39c12;
+
+margin-bottom:8px;
+
+}
+
+.welcome p{
+
+color:#ccc;
+
+line-height:1.6;
+
+}
+
+.welcome-icon{
+
+font-size:70px;
+
+}
+/* Quick Menu */
+
+.menu{
+
+display:grid;
+
+grid-template-columns:repeat(auto-fit,minmax(170px,1fr));
+
+gap:15px;
+
+margin-bottom:25px;
+
+}
+
+.menu a{
+
+text-decoration:none;
+
+}
+
+.menu-card{
+
+background:#1c1c1c;
+
+border:2px solid #333;
+
+border-radius:18px;
+
+padding:20px;
+
+text-align:center;
+
+transition:.3s;
+
+cursor:pointer;
+
+}
+
+.menu-card:hover{
+
+border-color:#f39c12;
+
+transform:translateY(-5px);
+
+box-shadow:0 0 18px rgba(243,156,18,.35);
+
+}
+
+.menu-card div{
+
+font-size:42px;
+
+margin-bottom:10px;
+
+}
+
+.menu-card h3{
+
+color:#f39c12;
+
+font-size:17px;
+
+margin-bottom:6px;
+
+}
+
+.menu-card p{
+
+font-size:13px;
+
+color:#bbb;
+
+}
+
+/* Dashboard Stats */
+
+.stats-grid{
+
+display:grid;
+
+grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+
+gap:18px;
+
+margin-bottom:30px;
+
+}
+
+.stat-card{
+
+background:#1c1c1c;
+
+border:2px solid #333;
+
+border-radius:18px;
+
+padding:22px;
+
+text-align:center;
+
+transition:.3s;
+
+}
+
+.stat-card:hover{
+
+border-color:#f39c12;
+
+transform:translateY(-5px);
+
+}
+
+.stat-card h3{
+
+color:#f39c12;
+
+font-size:16px;
+
+margin-bottom:12px;
+
+}
+
+.stat-card h2{
+
+font-size:32px;
+
+color:white;
+
+}
+
+/* Search */
+
+.search-box{
+
+margin-bottom:25px;
+
+}
+
+.search-box input{
+
+width:100%;
+
+padding:15px;
+
+border:none;
+
+outline:none;
+
+border-radius:15px;
+
+background:#1c1c1c;
+
+color:white;
+
+font-size:16px;
+
+border:2px solid #333;
+
+transition:.3s;
+
+}
+
+.search-box input:focus{
+
+border-color:#f39c12;
+
+}
+/* Products */
+
+.products{
+
+display:grid;
+
+grid-template-columns:repeat(auto-fit,minmax(330px,1fr));
+
+gap:20px;
+
+margin-bottom:30px;
+
+}
+
+.product-card{
+
+background:#1c1c1c;
+
+border:2px solid #333;
+
+border-radius:20px;
+
+padding:18px;
+
+transition:.3s;
+
+box-shadow:0 8px 20px rgba(0,0,0,.25);
+
+}
+
+.product-card:hover{
+
+border-color:#f39c12;
+
+transform:translateY(-5px);
+
+}
+
+.low-stock{
+
+border:2px solid #e74c3c;
+
+}
+
+.product-card img{
+
+width:100%;
+
+height:230px;
+
+object-fit:contain;
+
+background:white;
+
+border-radius:15px;
+
+padding:10px;
+
+margin-bottom:15px;
+
+}
+
+.product-card h2{
+
+color:#f39c12;
+
+font-size:22px;
+
+margin-bottom:10px;
+
+}
+
+.product-card p{
+
+margin:6px 0;
+
+font-size:15px;
+
+color:#ddd;
+
+line-height:1.5;
+
+}
+
+.price-box{
+
+margin:15px 0;
+
+padding:15px;
+
+background:#252525;
+
+border-radius:15px;
+
+border:1px solid #333;
+
+}
+
+.price-box p{
+
+margin:8px 0;
+
+}
+
+.stock-alert{
+
+margin-top:12px;
+
+padding:10px;
+
+background:#5a1111;
+
+border-radius:10px;
+
+color:#ff6b6b;
+
+font-weight:bold;
+
+text-align:center;
+
+}
+
+.action-buttons{
+
+display:grid;
+
+grid-template-columns:1fr 1fr;
+
+gap:12px;
+
+margin-top:18px;
+
+}
+
+.edit-btn{
+
+padding:12px;
+
+border:none;
+
+border-radius:10px;
+
+background:#f39c12;
+
+color:#111;
+
+font-weight:bold;
+
+cursor:pointer;
+
+transition:.3s;
+
+}
+
+.edit-btn:hover{
+
+background:#ffb84d;
+
+}
+
+.delete-btn{
+
+padding:12px;
+
+border:none;
+
+border-radius:10px;
+
+background:#e74c3c;
+
+color:white;
+
+font-weight:bold;
+
+cursor:pointer;
+
+transition:.3s;
+
+}
+
+.delete-btn:hover{
+
+background:#c0392b;
+
+}
+
+/* Low Stock Widget */
+
+.widget{
+
+background:#1c1c1c;
+
+border:2px solid #333;
+
+border-radius:20px;
+
+padding:20px;
+
+margin-top:30px;
+
+}
+
+.widget h2{
+
+color:#f39c12;
+
+margin-bottom:15px;
+
+}
+
+.widget p{
+
+margin:10px 0;
+
+color:#ddd;
+
+line-height:1.6;
+
+}
+/* Animation */
+
+.fade{
+
+animation:fadeIn .8s ease;
+
+}
+
+@keyframes fadeIn{
+
+from{
+
+opacity:0;
+
+transform:translateY(20px);
+
+}
+
+to{
+
+opacity:1;
+
+transform:translateY(0);
+
+}
+
+}
+
+@media(max-width:768px){
+
+.header{
+
+flex-direction:column;
+
+align-items:flex-start;
+
+}
+
+.welcome{
+
+flex-direction:column;
+
+text-align:center;
+
+}
+
+.products{
+
+grid-template-columns:1fr;
+
+}
+
+.action-buttons{
+
+grid-template-columns:1fr;
+
+}
+
+.menu{
+
+grid-template-columns:repeat(2,1fr);
+
+}
+
+.stats-grid{
+
+grid-template-columns:repeat(2,1fr);
+
+}
+
+}
+
+@media(max-width:480px){
+
+.menu{
+
+grid-template-columns:1fr;
+
+}
+
+.stats-grid{
+
+grid-template-columns:1fr;
+
+}
+
+.logo{
+
+font-size:28px;
+
+}
+
+.welcome-icon{
+
+font-size:55px;
+
+}
+
+}
+
+</style>
+
+</head>
+
+<body class="fade">
+
+<script>
+
+if(!sessionStorage.getItem("loggedIn")){
+
+window.location.href="login.html";
+
+}
+
+</script>
+
+<div class="header">
+
+<div class="logo">
+
+🛒 SLV Dashboard
+
+</div>
+
+<button
+
+class="logout-btn"
+
+onclick="logout()">
+
+Logout
+
+</button>
+
+</div>
+
+<div class="welcome">
+
+<div>
+
+<h2>
+
+Welcome Back, Admin 👋
+
+</h2>
+
+<p>
+
+Manage products, orders, billing, inventory and analytics from one place.
+
+</p>
+
+</div>
+
+<div class="welcome-icon">
+
+🏪
+
+</div>
+
+</div>
+
+<div class="menu">
+
+<a href="admin.html">
+
+<div class="menu-card">
+
+<div>➕</div>
+
+<h3>Add Product</h3>
+
+<p>Add new grocery items</p>
+
+</div>
+
+</a>
+
+<a href="billing.html">
+
+<div class="menu-card">
+
+<div>🧾</div>
+
+<h3>Billing</h3>
+
+<p>Create customer bills</p>
+
+</div>
+
+</a>
+
+<a href="admin-orders.html">
+
+<div class="menu-card">
+
+<div>📦</div>
+
+<h3>Orders</h3>
+
+<p>Manage online orders</p>
+
+</div>
+
+</a>
+
+<a href="stock-in.html">
+
+<div class="menu-card">
+
+<div>📥</div>
+
+<h3>Stock In</h3>
+
+<p>Add inventory stock</p>
+
+</div>
+
+</a>
+
+<a href="stock-history.html">
+
+<div class="menu-card">
+
+<div>📋</div>
+
+<h3>Stock History</h3>
+
+<p>Inventory movement</p>
+
+</div>
+
+</a>
+
+<a href="analytics.html">
+
+<div class="menu-card">
+
+<div>📊</div>
+
+<h3>Analytics</h3>
+
+<p>Business insights</p>
+
+</div>
+
+</a>
+
+<a href="sales-report.html">
+
+<div class="menu-card">
+
+<div>💰</div>
+
+<h3>Sales Report</h3>
+
+<p>Daily & monthly sales</p>
+
+</div>
+
+</a>
+
+<a href="customer-management.html">
+
+<div class="menu-card">
+
+<div>👥</div>
+
+<h3>Customers</h3>
+
+<p>Customer management</p>
+
+</div>
+
+</a>
+
+</div>
+
+<div class="stats-grid">
+
+<div class="stat-card">
+
+<h3>Total Products</h3>
+
+<h2 id="totalProducts">
+
+0
+
+</h2>
+
+</div>
+
+<div class="stat-card">
+
+<h3>Total Stock</h3>
+
+<h2 id="totalStock">
+
+0
+
+</h2>
+
+</div>
+
+<div class="stat-card">
+
+<h3>Inventory Value</h3>
+
+<h2 id="inventoryValue">
+
+₹0
+
+</h2>
+
+</div>
+
+<div class="stat-card">
+
+<h3>Total Orders</h3>
+
+<h2 id="totalOrders">
+
+0
+
+</h2>
+
+</div>
+
+<div class="stat-card">
+
+<h3>Pending Orders</h3>
+
+<h2 id="pendingOrders">
+
+0
+
+</h2>
+
+</div>
+
+<div class="stat-card">
+
+<h3>Delivered Orders</h3>
+
+<h2 id="deliveredOrders">
+
+0
+
+</h2>
+
+</div>
+
+<div class="stat-card">
+
+<h3>Total Revenue</h3>
+
+<h2 id="totalRevenue">
+
+₹0
+
+</h2>
+
+</div>
+
+</div>
+
+<div class="search-box">
+
+<input
+
+type="text"
+
+id="searchInput"
+
+placeholder="🔍 Search Products..."
+
+onkeyup="searchProducts()">
+
+</div>
+
+<div
+
+class="products"
+
+id="productContainer">
+
+</div>
+
+<div class="widget">
+
+<h2>
+
+⚠ Low Stock Products
+
+</h2>
+
+<div id="lowStockWidget">
+
+Loading...
+
+</div>
+
+</div>
+/* Animation */
+
+.fade{
+
+animation:fadeIn .8s ease;
+
+}
+
+@keyframes fadeIn{
+
+from{
+
+opacity:0;
+
+transform:translateY(20px);
+
+}
+
+to{
+
+opacity:1;
+
+transform:translateY(0);
+
+}
+
+}
+
+@media(max-width:768px){
+
+.header{
+
+flex-direction:column;
+
+align-items:flex-start;
+
+}
+
+.welcome{
+
+flex-direction:column;
+
+text-align:center;
+
+}
+
+.products{
+
+grid-template-columns:1fr;
+
+}
+
+.action-buttons{
+
+grid-template-columns:1fr;
+
+}
+
+.menu{
+
+grid-template-columns:repeat(2,1fr);
+
+}
+
+.stats-grid{
+
+grid-template-columns:repeat(2,1fr);
+
+}
+
+}
+
+@media(max-width:480px){
+
+.menu{
+
+grid-template-columns:1fr;
+
+}
+
+.stats-grid{
+
+grid-template-columns:1fr;
+
+}
+
+.logo{
+
+font-size:28px;
+
+}
+
+.welcome-icon{
+
+font-size:55px;
+
+}
+
+}
+
+</style>
+
+</head>
+
+<body class="fade">
+
+<script>
+
+if(!sessionStorage.getItem("loggedIn")){
+
+window.location.href="login.html";
+
+}
+
+</script>
+
+<div class="header">
+
+<div class="logo">
+
+🛒 SLV Dashboard
+
+</div>
+
+<button
+
+class="logout-btn"
+
+onclick="logout()">
+
+Logout
+
+</button>
+
+</div>
+
+<div class="welcome">
+
+<div>
+
+<h2>
+
+Welcome Back, Admin 👋
+
+</h2>
+
+<p>
+
+Manage products, orders, billing, inventory and analytics from one place.
+
+</p>
+
+</div>
+
+<div class="welcome-icon">
+
+🏪
+
+</div>
+
+</div>
+
+<div class="menu">
+
+<a href="admin.html">
+
+<div class="menu-card">
+
+<div>➕</div>
+
+<h3>Add Product</h3>
+
+<p>Add new grocery items</p>
+
+</div>
+
+</a>
+
+<a href="billing.html">
+
+<div class="menu-card">
+
+<div>🧾</div>
+
+<h3>Billing</h3>
+
+<p>Create customer bills</p>
+
+</div>
+
+</a>
+
+<a href="admin-orders.html">
+
+<div class="menu-card">
+
+<div>📦</div>
+
+<h3>Orders</h3>
+
+<p>Manage online orders</p>
+
+</div>
+
+</a>
+
+<a href="stock-in.html">
+
+<div class="menu-card">
+
+<div>📥</div>
+
+<h3>Stock In</h3>
+
+<p>Add inventory stock</p>
+
+</div>
+
+</a>
+
+<a href="stock-history.html">
+
+<div class="menu-card">
+
+<div>📋</div>
+
+<h3>Stock History</h3>
+
+<p>Inventory movement</p>
+
+</div>
+
+</a>
+
+<a href="analytics.html">
+
+<div class="menu-card">
+
+<div>📊</div>
+
+<h3>Analytics</h3>
+
+<p>Business insights</p>
+
+</div>
+
+</a>
+
+<a href="sales-report.html">
+
+<div class="menu-card">
+
+<div>💰</div>
+
+<h3>Sales Report</h3>
+
+<p>Daily & monthly sales</p>
+
+</div>
+
+</a>
+
+<a href="customer-management.html">
+
+<div class="menu-card">
+
+<div>👥</div>
+
+<h3>Customers</h3>
+
+<p>Customer management</p>
+
+</div>
+
+</a>
+
+</div>
+
+<div class="stats-grid">
+
+<div class="stat-card">
+
+<h3>Total Products</h3>
+
+<h2 id="totalProducts">
+
+0
+
+</h2>
+
+</div>
+
+<div class="stat-card">
+
+<h3>Total Stock</h3>
+
+<h2 id="totalStock">
+
+0
+
+</h2>
+
+</div>
+
+<div class="stat-card">
+
+<h3>Inventory Value</h3>
+
+<h2 id="inventoryValue">
+
+₹0
+
+</h2>
+
+</div>
+
+<div class="stat-card">
+
+<h3>Total Orders</h3>
+
+<h2 id="totalOrders">
+
+0
+
+</h2>
+
+</div>
+
+<div class="stat-card">
+
+<h3>Pending Orders</h3>
+
+<h2 id="pendingOrders">
+
+0
+
+</h2>
+
+</div>
+
+<div class="stat-card">
+
+<h3>Delivered Orders</h3>
+
+<h2 id="deliveredOrders">
+
+0
+
+</h2>
+
+</div>
+
+<div class="stat-card">
+
+<h3>Total Revenue</h3>
+
+<h2 id="totalRevenue">
+
+₹0
+
+</h2>
+
+</div>
+
+</div>
+
+<div class="search-box">
+
+<input
+
+type="text"
+
+id="searchInput"
+
+placeholder="🔍 Search Products..."
+
+onkeyup="searchProducts()">
+
+</div>
+
+<div
+
+class="products"
+
+id="productContainer">
+
+</div>
+
+<div class="widget">
+
+<h2>
+
+⚠ Low Stock Products
+
+</h2>
+
+<div id="lowStockWidget">
+
+Loading...
+
+</div>
+
+</div>
+<script>
+
+function logout(){
+
+sessionStorage.removeItem(
+
+"loggedIn"
+
+);
+
+window.location.href=
+
+"login.html";
+
+}
+
+function searchProducts(){
+
+const search=
+
+document.getElementById(
+
+"searchInput"
+
+).value.toLowerCase();
+
+const cards=
+
+document.querySelectorAll(
+
+".product-card"
+
+);
+
+cards.forEach(card=>{
+
+card.style.display=
+
+card.innerText.toLowerCase().includes(search)
+
+?
+
+"block"
+
+:
+
+"none";
+
+});
+
+}
+
+async function loadDashboardStats(){
+
+try{
+
+const response=
+
+await fetch(
+
+"http://localhost:5000/dashboard-stats"
+
+);
+
+const data=
+
+await response.json();
+
+document.getElementById(
+
+"totalProducts"
+
+).innerText=
+
+data.total_products||0;
+
+document.getElementById(
+
+"totalOrders"
+
+).innerText=
+
+data.total_orders||0;
+
+document.getElementById(
+
+"pendingOrders"
+
+).innerText=
+
+data.pending_orders||0;
+
+document.getElementById(
+
+"deliveredOrders"
+
+).innerText=
+
+data.delivered_orders||0;
+
+document.getElementById(
+
+"totalRevenue"
+
+).innerText=
+
+"₹"+
+
+parseFloat(
+
+data.total_revenue||0
+
+).toFixed(2);
+
+}
+
+catch(error){
+
+console.log(error);
+
+}
+
+}
+
+function loadLowStock(products){
+
+const lowStock=
+
+products.filter(product=>
+
+Number(product.stock_quantity)<20
+
+);
+
+let html="";
+
+if(lowStock.length===0){
+
+html="<p>✅ No Low Stock Products</p>";
+
+}
+
+else{
+
+lowStock.forEach(product=>{
+
+html+=`
+
+<p>
+
+<b>
+
+${product.product_name}
+
+</b>
+
+<br>
+
+Stock :
+
+${product.stock_quantity}
+
+${product.unit||""}
+
+</p>
+
+<hr
+style="border-color:#333;margin:10px 0;">
+
+`;
+
+});
+
+}
+
+document.getElementById(
+
+"lowStockWidget"
+
+).innerHTML=
+
+html;
+
+}
+
+async function loadProducts(){
+
+try{
+
+const response=
+
+await fetch(
+
+"http://localhost:5000/products"
+
+);
+
+const products=
+
+await response.json();
+
+loadLowStock(products);
+
+let totalStock=0;
+
+let inventoryValue=0;
+
+let html="";
+
+products.forEach(product=>{
+
+totalStock+=
+
+Number(product.stock_quantity);
+
+inventoryValue+=
+
+Number(product.retail_price)*
+
+Number(product.stock_quantity);
+
+const image=
+
+product.product_image
+
+?
+
+`http://localhost:5000/uploads/${product.product_image}`
+
+:
+
+"images/no-image.png";
+
+const lowStock=
+
+Number(product.stock_quantity)<20;
+
+html+=`
+
+<div class="product-card ${lowStock?"low-stock":""}">
+
+<img
+
+src="${image}"
+
+onerror="this.src='images/no-image.png'">
+
+<h2>
+
+${product.product_name}
+
+</h2>
+
+<p>
+
+<b>Brand :</b>
+
+${product.brand||"-"}
+
+</p>
+
+<p>
+
+<b>Main Category :</b>
+
+${product.main_category||"-"}
+
+</p>
+
+<p>
+
+<b>Sub Category :</b>
+
+${product.sub_category||"-"}
+
+</p>
+
+<div class="price-box">
+
+<p>
+
+<b>Cost Price :</b>
+
+₹${Number(product.cost_price).toFixed(2)}
+
+</p>
+
+<p>
+
+<b>Retail Price :</b>
+
+₹${Number(product.retail_price).toFixed(2)}
+
+</p>
+
+<p>
+
+<b>Wholesale Price :</b>
+
+₹${Number(product.wholesale_price).toFixed(2)}
+
+</p>
+
+</div>
+
+<p>
+
+<b>Stock :</b>
+
+${product.stock_quantity}
+
+${product.unit||""}
+
+</p>
+
+<p>
+
+<b>Description :</b>
+
+${product.description||"-"}
+
+</p>
+
+${lowStock?`
+
+<div class="stock-alert">
+
+⚠ LOW STOCK
+
+</div>
+
+`:""}
+
+<div class="action-buttons">
+
+<button
+
+class="edit-btn"
+
+onclick="editProduct(${product.id})">
+
+✏ Edit
+
+</button>
+
+<button
+
+class="delete-btn"
+
+onclick="deleteProduct(${product.id})">
+
+🗑 Delete
+
+</button>
+
+</div>
+
+</div>
+
+`;
+
+});
+
+document.getElementById(
+
+"totalProducts"
+
+).innerText=
+
+products.length;
+
+document.getElementById(
+
+"totalStock"
+
+).innerText=
+
+totalStock;
+
+document.getElementById(
+
+"inventoryValue"
+
+).innerText=
+
+"₹"+inventoryValue.toFixed(2);
+
+document.getElementById(
+
+"productContainer"
+
+).innerHTML=
+
+html;
+
+}
+
+catch(error){
+
+console.error(error);
+
+alert(
+
+"Failed To Load Products"
+
+);
+
+}
+
+}
+
+async function deleteProduct(id){
+
+if(!confirm(
+
+"Delete this product?"
+
+)){
+
+return;
+
+}
+
+await fetch(
+
+`http://localhost:5000/products/${id}`,
+
+{
+
+method:"DELETE"
+
+}
+
+);
+
+loadProducts();
+
+}
+
+function editProduct(id){
+
+window.location.href=
+
+`edit-product.html?id=${id}`;
+
+}
+
+loadDashboardStats();
+
+loadProducts();
+
+</script>
+
+</body>
+
+</html>

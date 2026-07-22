@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>SLV Customer Login</title>
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Arial,sans-serif;
+}
+
+body{
+background:#111111;
+min-height:100vh;
+display:flex;
+justify-content:center;
+align-items:center;
+padding:20px;
+}
+
+.login-box{
+width:100%;
+max-width:400px;
+background:#1c1c1c;
+padding:25px;
+border-radius:20px;
+box-shadow:0 0 20px rgba(243,156,18,.3);
+}
+
+.logo{
+text-align:center;
+margin-bottom:20px;
+}
+
+.logo img{
+width:120px;
+height:auto;
+}
+
+.title{
+text-align:center;
+color:#f5b041;
+font-size:28px;
+font-weight:bold;
+margin-bottom:10px;
+}
+
+.subtitle{
+text-align:center;
+color:#ccc;
+margin-bottom:25px;
+}
+
+input{
+width:100%;
+padding:14px;
+margin-bottom:15px;
+border:none;
+border-radius:10px;
+background:#2b2b2b;
+color:white;
+font-size:16px;
+}
+
+button{
+width:100%;
+padding:14px;
+background:#f39c12;
+color:black;
+font-weight:bold;
+font-size:16px;
+border:none;
+border-radius:10px;
+cursor:pointer;
+}
+
+button:hover{
+background:#ffb84d;
+}
+
+#otpSection{
+display:none;
+}
+
+.note{
+text-align:center;
+margin-top:15px;
+color:#aaa;
+font-size:13px;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="login-box">
+
+<div class="logo">
+
+<!-- Replace with your logo path -->
+<img src="logo.png">
+
+</div>
+
+<div class="title">
+SLV STORES
+</div>
+
+<div class="subtitle">
+Login With Mobile Number
+</div>
+
+<input
+type="tel"
+id="mobile"
+placeholder="Enter Mobile Number">
+
+<button onclick="sendOTP()">
+Send OTP
+</button>
+
+<div id="otpSection">
+
+<input
+type="number"
+id="otp"
+placeholder="Enter OTP">
+
+<button onclick="verifyOTP()">
+Verify OTP
+</button>
+
+</div>
+
+<div class="note">
+Fresh • Quality • Trust
+</div>
+
+</div>
+
+<script>
+
+function sendOTP(){
+
+const mobile =
+document.getElementById(
+'mobile'
+).value;
+
+if(mobile.length !== 10){
+
+alert(
+'Enter Valid Mobile Number'
+);
+
+return;
+}
+
+/*
+Later:
+Backend OTP API
+*/
+
+alert(
+'Demo OTP : 1234'
+);
+
+document.getElementById(
+'otpSection'
+).style.display =
+'block';
+
+}
+
+function verifyOTP(){
+
+const otp =
+document.getElementById(
+'otp'
+).value;
+
+if(otp === '1234'){
+
+localStorage.setItem(
+'customerLoggedIn',
+'true'
+);
+
+localStorage.setItem(
+'customerMobile',
+document.getElementById(
+'mobile'
+).value
+);
+
+window.location.href =
+'customer-home.html';
+
+}
+else{
+
+alert(
+'Invalid OTP'
+);
+
+}
+
+}
+
+</script>
+
+</body>
+
+</html>

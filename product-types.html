@@ -1,0 +1,949 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta
+name="viewport"
+content="width=device-width, initial-scale=1.0">
+
+<title>
+
+SLV Stores - Product Types
+
+</title>
+
+<style>
+
+*{
+
+margin:0;
+
+padding:0;
+
+box-sizing:border-box;
+
+font-family:Arial,sans-serif;
+
+}
+
+html{
+
+scroll-behavior:smooth;
+
+}
+
+body{
+
+background:#111;
+
+color:white;
+
+padding-bottom:90px;
+
+overflow-x:hidden;
+
+}
+
+/* Banner */
+
+.banner{
+
+width:100%;
+
+overflow:hidden;
+
+background:#000;
+
+}
+
+.banner img{
+
+width:100%;
+
+display:block;
+
+border-bottom:3px solid #f39c12;
+
+}
+
+/* Header */
+
+.header{
+
+padding:20px;
+
+text-align:center;
+
+}
+
+.header h1{
+
+font-size:30px;
+
+color:#f39c12;
+
+margin-bottom:8px;
+
+}
+
+.header p{
+
+color:#bbb;
+
+font-size:15px;
+
+}
+
+/* Back Button */
+
+.back-btn{
+
+margin:20px;
+
+display:inline-flex;
+
+align-items:center;
+
+gap:10px;
+
+padding:12px 20px;
+
+background:#f39c12;
+
+color:#111;
+
+text-decoration:none;
+
+font-weight:bold;
+
+border-radius:30px;
+
+transition:.3s;
+
+}
+
+.back-btn:hover{
+
+background:#ffb84d;
+
+transform:translateX(-3px);
+
+}
+
+/* Search */
+
+.search-section{
+
+padding:0 20px 20px;
+
+}
+
+.search-box{
+
+display:flex;
+
+align-items:center;
+
+background:#1c1c1c;
+
+border:2px solid #333;
+
+border-radius:18px;
+
+padding:15px;
+
+transition:.3s;
+
+}
+
+.search-box:hover{
+
+border-color:#f39c12;
+
+box-shadow:0 0 15px rgba(243,156,18,.35);
+
+}
+
+.search-box input{
+
+width:100%;
+
+background:none;
+
+border:none;
+
+outline:none;
+
+color:white;
+
+font-size:16px;
+
+}
+
+.search-box input::placeholder{
+
+color:#999;
+
+}
+/* Grid */
+
+.grid{
+
+display:grid;
+
+grid-template-columns:repeat(2,1fr);
+
+gap:18px;
+
+padding:20px;
+
+}
+
+.card{
+
+background:linear-gradient(
+135deg,
+#1b1b1b,
+#2b2b2b
+);
+
+border:2px solid #333;
+
+border-radius:20px;
+
+padding:25px 15px;
+
+text-align:center;
+
+cursor:pointer;
+
+transition:.35s;
+
+display:flex;
+
+flex-direction:column;
+
+justify-content:center;
+
+align-items:center;
+
+min-height:180px;
+
+box-shadow:0 8px 18px rgba(0,0,0,.25);
+
+}
+
+.card:hover{
+
+transform:translateY(-6px);
+
+border-color:#f39c12;
+
+box-shadow:0 0 20px rgba(243,156,18,.45);
+
+}
+
+.card-icon{
+
+font-size:50px;
+
+margin-bottom:15px;
+
+}
+
+.card h3{
+
+font-size:20px;
+
+color:#f39c12;
+
+margin-bottom:10px;
+
+}
+
+.card p{
+
+font-size:14px;
+
+color:#ccc;
+
+line-height:1.5;
+
+text-align:center;
+
+}
+
+.open{
+
+margin-top:15px;
+
+font-weight:bold;
+
+color:#2ecc71;
+
+}
+
+.loading{
+
+text-align:center;
+
+padding:40px;
+
+font-size:18px;
+
+color:#f39c12;
+
+grid-column:1/-1;
+
+}
+
+.fade{
+
+animation:fadeIn .8s ease;
+
+}
+
+@keyframes fadeIn{
+
+from{
+
+opacity:0;
+
+transform:translateY(20px);
+
+}
+
+to{
+
+opacity:1;
+
+transform:translateY(0);
+
+}
+
+}
+/* Bottom Navigation */
+
+.bottom-nav{
+
+position:fixed;
+
+left:0;
+
+right:0;
+
+bottom:0;
+
+height:72px;
+
+background:#111;
+
+display:flex;
+
+justify-content:space-around;
+
+align-items:center;
+
+border-top:2px solid #f39c12;
+
+box-shadow:0 -2px 15px rgba(0,0,0,.45);
+
+z-index:999;
+
+}
+
+.bottom-nav a{
+
+display:flex;
+
+flex-direction:column;
+
+align-items:center;
+
+justify-content:center;
+
+text-decoration:none;
+
+color:#ddd;
+
+font-size:13px;
+
+font-weight:bold;
+
+transition:.3s;
+
+}
+
+.bottom-nav a div{
+
+font-size:22px;
+
+margin-bottom:4px;
+
+}
+
+.bottom-nav a:hover{
+
+color:#f39c12;
+
+transform:translateY(-3px);
+
+}
+
+.bottom-nav a.active{
+
+color:#f39c12;
+
+}
+
+@media(max-width:480px){
+
+.header h1{
+
+font-size:26px;
+
+}
+
+.grid{
+
+grid-template-columns:repeat(2,1fr);
+
+gap:15px;
+
+padding:15px;
+
+}
+
+.card{
+
+min-height:170px;
+
+padding:20px 10px;
+
+}
+
+.card-icon{
+
+font-size:42px;
+
+}
+
+.card h3{
+
+font-size:17px;
+
+}
+
+.card p{
+
+font-size:13px;
+
+}
+
+}
+
+</style>
+
+</head>
+
+<body class="fade">
+
+<!-- Banner -->
+
+<div class="banner">
+
+<img
+
+src="images/banner.jpeg"
+
+alt="SLV Banner">
+
+</div>
+
+<!-- Back Button -->
+
+<a
+href="subcategory.html"
+class="back-btn">
+
+⬅ Back
+
+</a>
+
+<!-- Header -->
+
+<div class="header">
+
+<h1 id="title">
+
+Product Types
+
+</h1>
+
+<p>
+
+Choose a product type
+
+</p>
+
+</div>
+
+<!-- Search -->
+
+<div class="search-section">
+
+<div class="search-box">
+
+<input
+
+type="text"
+
+id="searchBox"
+
+placeholder="🔍 Search Product Types..."
+
+onkeyup="searchProductTypes()">
+
+</div>
+
+</div>
+
+<!-- Product Types -->
+
+<div
+
+class="grid"
+
+id="container">
+
+<div class="loading">
+
+Loading Product Types...
+
+</div>
+
+</div>
+<script>
+
+const params=
+
+new URLSearchParams(
+
+window.location.search
+
+);
+
+const mainCategory=
+
+params.get("main_category") || "";
+
+const subCategory=
+
+params.get("sub_category") || "";
+
+document.getElementById(
+
+"title"
+
+).innerText=
+
+subCategory;
+
+async function loadProductTypes(){
+
+try{
+
+const response=
+
+await fetch(
+
+"http://localhost:5000/products"
+
+);
+
+const products=
+
+await response.json();
+
+const filteredProducts=
+
+products.filter(product=>
+
+(product.main_category || "").trim().toLowerCase()===
+
+mainCategory.trim().toLowerCase()
+
+&&
+
+(product.sub_category || "").trim().toLowerCase()===
+
+subCategory.trim().toLowerCase()
+
+);
+
+const productTypeMap={};
+
+filteredProducts.forEach(product=>{
+
+const type=
+
+product.product_type || "Others";
+
+if(!productTypeMap[type]){
+
+productTypeMap[type]=0;
+
+}
+
+productTypeMap[type]++;
+
+});
+
+let html="";
+
+Object.keys(productTypeMap)
+
+.sort()
+
+.forEach(type=>{
+
+html+=`
+
+<div
+
+class="card"
+
+onclick="openBrands('${type}')">
+
+<div class="card-icon">
+
+📦
+
+</div>
+
+<h3>
+
+${type}
+
+</h3>
+
+<p>
+
+${productTypeMap[type]} Products
+
+</p>
+
+<div class="open">
+
+Open →
+
+</div>
+
+</div>
+
+`;
+
+});
+
+if(html===""){
+
+html=`
+
+<div
+style="
+grid-column:1/-1;
+text-align:center;
+padding:40px;
+color:#ccc;
+">
+
+No Product Types Found
+
+</div>
+
+`;
+
+}
+
+document.getElementById(
+
+"container"
+
+).innerHTML=
+
+html;
+
+}
+
+catch(error){
+
+console.error(error);
+
+document.getElementById(
+
+"container"
+
+).innerHTML=
+
+`
+
+<div
+style="
+grid-column:1/-1;
+text-align:center;
+padding:40px;
+color:#ff6b6b;
+">
+
+Failed To Load Product Types
+
+</div>
+
+`;
+
+}
+
+}
+
+function searchProductTypes(){
+
+const value=
+
+document.getElementById(
+
+"searchBox"
+
+).value.toLowerCase();
+
+const cards=
+
+document.querySelectorAll(
+
+".card"
+
+);
+
+cards.forEach(card=>{
+
+const text=
+
+card.innerText.toLowerCase();
+
+if(text.includes(value)){
+
+card.style.display="flex";
+
+}
+
+else{
+
+card.style.display="none";
+
+}
+
+});
+
+}
+
+function openBrands(productType){
+
+window.location.href=
+
+`brands.html?main_category=${encodeURIComponent(mainCategory)}&sub_category=${encodeURIComponent(subCategory)}&product_type=${encodeURIComponent(productType)}`;
+
+}
+
+loadProductTypes();
+/* Bottom Navigation Active */
+
+const navLinks=
+
+document.querySelectorAll(
+
+".bottom-nav a"
+
+);
+
+navLinks.forEach(link=>{
+
+link.addEventListener("click",()=>{
+
+navLinks.forEach(item=>{
+
+item.classList.remove("active");
+
+});
+
+link.classList.add("active");
+
+});
+
+});
+
+/* Card Animation */
+
+const observer=
+
+new IntersectionObserver(entries=>{
+
+entries.forEach(entry=>{
+
+if(entry.isIntersecting){
+
+entry.target.style.opacity="1";
+
+entry.target.style.transform="translateY(0px)";
+
+}
+
+});
+
+},
+{
+threshold:0.15
+});
+
+document.addEventListener(
+
+"DOMContentLoaded",
+
+()=>{
+
+document.querySelectorAll(
+
+".card"
+
+).forEach(card=>{
+
+card.style.opacity="0";
+
+card.style.transform="translateY(25px)";
+
+card.style.transition=".6s";
+
+observer.observe(card);
+
+});
+
+});
+
+/* Enter Key Search */
+
+document.getElementById(
+
+"searchBox"
+
+).addEventListener(
+
+"keypress",
+
+function(event){
+
+if(event.key==="Enter"){
+
+searchProductTypes();
+
+}
+
+});
+
+</script>
+
+<!-- Bottom Navigation -->
+
+<div class="bottom-nav">
+
+<a
+href="customer-home.html">
+
+<div>
+
+🏠
+
+</div>
+
+<span>
+
+Home
+
+</span>
+
+</a>
+
+<a
+href="categories.html"
+class="active">
+
+<div>
+
+📂
+
+</div>
+
+<span>
+
+Categories
+
+</span>
+
+</a>
+
+<a
+href="customer-cart.html">
+
+<div>
+
+🛒
+
+</div>
+
+<span>
+
+Cart
+
+</span>
+
+</a>
+
+<a
+href="customer-profile.html">
+
+<div>
+
+👤
+
+</div>
+
+<span>
+
+Profile
+
+</span>
+
+</a>
+
+<a
+href="my-orders.html">
+
+<div>
+
+📦
+
+</div>
+
+<span>
+
+Orders
+
+</span>
+
+</a>
+
+</div>
+
+</body>
+
+</html>

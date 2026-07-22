@@ -1,0 +1,1341 @@
+
+/* =====================================================
+   SLV STORES - BILLING.CSS (PARTIAL FOUNDATION)
+   Replace/extend this file with later sections.
+   ===================================================== */
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Poppins',Arial,sans-serif;
+}
+
+body{
+    background:#0d1117;
+    color:#fff;
+    overflow-x:hidden;
+}
+
+.billing-container{
+    max-width:1600px;
+    margin:auto;
+    padding:20px;
+}
+
+.billing-header{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:20px;
+    flex-wrap:wrap;
+    background:#161b22;
+    border-radius:16px;
+    padding:20px;
+    margin-bottom:20px;
+}
+
+.store-section{
+    display:flex;
+    align-items:center;
+    gap:18px;
+}
+
+.store-logo{
+    width:90px;
+    height:90px;
+    border-radius:50%;
+    object-fit:cover;
+    border:3px solid #f39c12;
+    background:#fff;
+}
+
+.store-section h1{
+    color:#f39c12;
+    font-size:30px;
+}
+
+.store-section p{
+    color:#d5d5d5;
+    line-height:1.6;
+}
+
+.invoice-section{
+    background:#202733;
+    padding:18px;
+    border-radius:14px;
+    min-width:280px;
+}
+
+.invoice-section table{
+    width:100%;
+}
+
+.invoice-section td{
+    padding:6px;
+}
+
+.customer-card,
+.billing-mode,
+.product-search,
+.selected-product,
+.bill-section,
+.summary-section,
+.button-section,
+.invoice-preview,
+.customer-history{
+    background:#161b22;
+    border-radius:16px;
+    padding:20px;
+    margin-bottom:20px;
+}
+
+.customer-card h2,
+.billing-mode h2,
+.product-search h2,
+.selected-product h2,
+.bill-section h2,
+.summary-section h2,
+.customer-history h2{
+    color:#f39c12;
+    margin-bottom:18px;
+}
+
+.customer-grid,
+.selected-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+    gap:18px;
+}
+
+label{
+    display:block;
+    margin-bottom:8px;
+    font-weight:600;
+}
+
+input,select{
+    width:100%;
+    padding:12px;
+    border:none;
+    border-radius:10px;
+    background:#232b39;
+    color:#fff;
+}
+
+input:focus,select:focus{
+    outline:none;
+    border:2px solid #f39c12;
+}
+
+.search-container{
+    position:relative;
+}
+
+.search-results{
+    position:absolute;
+    left:0;
+    right:0;
+    top:100%;
+    background:#1f2937;
+    display:none;
+    max-height:280px;
+    overflow:auto;
+    border-radius:10px;
+    z-index:999;
+}
+
+.search-item{
+    padding:12px;
+    cursor:pointer;
+    border-bottom:1px solid #333;
+}
+
+.search-item:hover{
+    background:#f39c12;
+    color:#000;
+}
+
+.mode-buttons{
+    display:flex;
+    gap:20px;
+    flex-wrap:wrap;
+}
+
+.mode-buttons label{
+    display:flex;
+    align-items:center;
+    gap:8px;
+    padding:10px 16px;
+    background:#232b39;
+    border-radius:10px;
+    cursor:pointer;
+}
+/* =====================================================
+   PART 1B
+   PRODUCT DETAILS
+===================================================== */
+
+.selected-product{
+
+    border-left:5px solid #2ecc71;
+
+}
+
+.selected-product input[readonly]{
+
+    background:#2d3748;
+
+    color:#f5f5f5;
+
+}
+
+.price-row{
+
+    display:grid;
+
+    grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+
+    gap:18px;
+
+    margin-top:20px;
+
+}
+
+/* =====================================================
+   QUANTITY SECTION
+===================================================== */
+
+.quantity-box{
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    gap:15px;
+
+    margin-top:25px;
+
+}
+
+.quantity-box button{
+
+    width:45px;
+
+    height:45px;
+
+    border:none;
+
+    border-radius:10px;
+
+    background:#f39c12;
+
+    color:#000;
+
+    font-size:24px;
+
+    font-weight:bold;
+
+    cursor:pointer;
+
+    transition:.3s;
+
+}
+
+.quantity-box button:hover{
+
+    background:#ffb62e;
+
+    transform:scale(1.05);
+
+}
+
+.quantity-box input{
+
+    width:90px;
+
+    text-align:center;
+
+    font-size:18px;
+
+    font-weight:bold;
+
+}
+
+/* =====================================================
+   ADD ITEM BUTTON
+===================================================== */
+
+#addItemBtn{
+
+    width:100%;
+
+    margin-top:25px;
+
+    padding:15px;
+
+    border:none;
+
+    border-radius:12px;
+
+    background:#27ae60;
+
+    color:#fff;
+
+    font-size:18px;
+
+    font-weight:600;
+
+    cursor:pointer;
+
+    transition:.3s;
+
+}
+
+#addItemBtn:hover{
+
+    background:#219150;
+
+}
+
+/* =====================================================
+   BILL TABLE
+===================================================== */
+
+.table-container{
+
+    overflow-x:auto;
+
+    border-radius:12px;
+
+}
+
+#billTable{
+
+    width:100%;
+
+    min-width:900px;
+
+    border-collapse:collapse;
+
+}
+
+#billTable thead{
+
+    background:#f39c12;
+
+    color:#000;
+
+}
+
+#billTable th{
+
+    padding:14px;
+
+    text-align:center;
+
+    font-size:15px;
+
+}
+
+#billTable td{
+
+    padding:14px;
+
+    text-align:center;
+
+    border-bottom:1px solid #2b3444;
+
+}
+
+#billTable tbody tr{
+
+    transition:.25s;
+
+}
+
+#billTable tbody tr:hover{
+
+    background:#232b39;
+
+}
+
+/* =====================================================
+   REMOVE BUTTON
+===================================================== */
+
+.remove-btn{
+
+    background:#e74c3c;
+
+    color:#fff;
+
+    border:none;
+
+    padding:8px 14px;
+
+    border-radius:8px;
+
+    cursor:pointer;
+
+    font-weight:bold;
+
+}
+
+.remove-btn:hover{
+
+    background:#c0392b;
+
+}
+
+/* =====================================================
+   SUMMARY
+===================================================== */
+
+.summary-card{
+
+    background:#202733;
+
+    border-radius:15px;
+
+    padding:20px;
+
+}
+
+.summary-row{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    padding:12px 0;
+
+    border-bottom:1px solid #30394d;
+
+    font-size:18px;
+
+}
+
+.summary-row:last-child{
+
+    border-bottom:none;
+
+}
+
+.grand{
+
+    margin-top:20px;
+
+    background:#27ae60;
+
+    border-radius:12px;
+
+    padding:20px;
+
+    text-align:center;
+
+    font-size:24px;
+
+    font-weight:bold;
+
+}
+
+/* =====================================================
+   BUTTONS
+===================================================== */
+
+.button-section{
+
+    display:grid;
+
+    grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
+
+    gap:15px;
+
+}
+
+.btn{
+
+    padding:15px;
+
+    border:none;
+
+    border-radius:12px;
+
+    font-size:16px;
+
+    font-weight:600;
+
+    cursor:pointer;
+
+    transition:.3s;
+
+}
+
+.btn:hover{
+
+    transform:translateY(-3px);
+
+}
+
+.generate-btn{
+
+    background:#27ae60;
+
+    color:#fff;
+
+}
+
+.print-btn{
+
+    background:#3498db;
+
+    color:#fff;
+
+}
+
+.whatsapp-btn{
+
+    background:#25D366;
+
+    color:#fff;
+
+}
+
+.new-btn{
+
+    background:#f39c12;
+
+    color:#000;
+
+}
+
+.back-btn{
+
+    background:#e74c3c;
+
+    color:#fff;
+
+}
+/* =====================================================
+   PART 2
+   INVOICE PREVIEW
+===================================================== */
+
+.invoice-preview{
+
+    display:none;
+
+    margin-top:30px;
+
+}
+
+.invoice-paper{
+
+    width:80mm;
+
+    max-width:80mm;
+
+    margin:0 auto;
+
+    background:#ffffff;
+
+    color:#000000;
+
+    padding:8mm;
+
+    border-radius:0;
+
+    box-shadow:0 0 10px rgba(0,0,0,.25);
+
+}
+
+.invoice-header{
+
+    text-align:center;
+
+    margin-bottom:15px;
+
+}
+
+.invoice-logo{
+
+    width:55px;
+
+    height:55px;
+
+    display:block;
+
+    margin:0 auto 10px;
+
+    object-fit:contain;
+
+}
+
+.invoice-header h2{
+
+    font-size:18px;
+
+    margin-bottom:5px;
+
+}
+
+.invoice-header p{
+
+    font-size:11px;
+
+    line-height:1.5;
+
+}
+
+.invoice-details{
+
+    margin-top:15px;
+
+    margin-bottom:15px;
+
+    font-size:12px;
+
+    line-height:1.8;
+
+}
+
+.invoice-table{
+
+    width:100%;
+
+    border-collapse:collapse;
+
+    margin-top:10px;
+
+}
+
+.invoice-table th{
+
+    border-top:1px solid #000;
+
+    border-bottom:1px solid #000;
+
+    padding:6px;
+
+    font-size:12px;
+
+}
+
+.invoice-table td{
+
+    padding:5px;
+
+    font-size:11px;
+
+    border-bottom:1px dashed #999;
+
+}
+
+.invoice-total{
+
+    margin-top:15px;
+
+    text-align:right;
+
+}
+
+.invoice-total h2{
+
+    font-size:16px;
+
+}
+
+.invoice-total h1{
+
+    margin-top:5px;
+
+    font-size:24px;
+
+    color:#000;
+
+}
+
+/* =====================================================
+   CUSTOMER HISTORY
+===================================================== */
+
+.history-summary{
+
+    display:flex;
+
+    flex-wrap:wrap;
+
+    gap:20px;
+
+    margin-bottom:20px;
+
+}
+
+.history-card{
+
+    flex:1;
+
+    min-width:180px;
+
+    background:#1f2937;
+
+    padding:18px;
+
+    border-radius:12px;
+
+    text-align:center;
+
+}
+
+.history-card h4{
+
+    color:#f39c12;
+
+    margin-bottom:8px;
+
+}
+
+.history-card p{
+
+    font-size:22px;
+
+    font-weight:bold;
+
+}
+
+.history-item{
+
+    background:#202733;
+
+    padding:12px;
+
+    margin-bottom:10px;
+
+    border-radius:10px;
+
+}
+
+/* =====================================================
+   SCROLLBAR
+===================================================== */
+
+::-webkit-scrollbar{
+
+    width:8px;
+
+    height:8px;
+
+}
+
+::-webkit-scrollbar-track{
+
+    background:#161b22;
+
+}
+
+::-webkit-scrollbar-thumb{
+
+    background:#f39c12;
+
+    border-radius:20px;
+
+}
+
+::-webkit-scrollbar-thumb:hover{
+
+    background:#ffb62e;
+
+}
+
+/* =====================================================
+   ANIMATIONS
+===================================================== */
+
+.billing-header,
+.customer-card,
+.billing-mode,
+.product-search,
+.selected-product,
+.bill-section,
+.summary-section,
+.button-section{
+
+    animation:fadeIn .4s ease;
+
+}
+
+@keyframes fadeIn{
+
+    from{
+
+        opacity:0;
+
+        transform:translateY(15px);
+
+    }
+
+    to{
+
+        opacity:1;
+
+        transform:translateY(0);
+
+    }
+
+}
+
+/* =====================================================
+   RESPONSIVE
+===================================================== */
+
+@media(max-width:992px){
+
+.billing-header{
+
+    flex-direction:column;
+
+}
+
+.customer-grid,
+.selected-grid,
+.price-row{
+
+    grid-template-columns:1fr;
+
+}
+
+.button-section{
+
+    grid-template-columns:repeat(2,1fr);
+
+}
+
+}
+
+@media(max-width:768px){
+
+.billing-container{
+
+    padding:12px;
+
+}
+
+.button-section{
+
+    grid-template-columns:1fr;
+
+}
+
+#billTable{
+
+    min-width:700px;
+
+}
+
+.invoice-paper{
+
+    width:100%;
+
+    max-width:380px;
+
+}
+
+}
+
+@media(max-width:480px){
+
+.store-logo{
+
+    width:70px;
+
+    height:70px;
+
+}
+
+.store-section{
+
+    flex-direction:column;
+
+    text-align:center;
+
+}
+
+.store-section h1{
+
+    font-size:22px;
+
+}
+
+.invoice-header h2{
+
+    font-size:16px;
+
+}
+
+.quantity-box{
+
+    flex-wrap:wrap;
+
+}
+
+.summary-row{
+
+    font-size:15px;
+
+}
+
+.grand{
+
+    font-size:20px;
+
+}
+
+}
+
+/* =====================================================
+   PRINT (THERMAL RECEIPT)
+===================================================== */
+
+@page{
+
+    size:80mm auto;
+
+    margin:2mm;
+
+}
+
+@media print{
+
+body{
+
+    background:#fff;
+
+    margin:0;
+
+    padding:0;
+
+}
+
+.billing-header,
+.customer-card,
+.billing-mode,
+.product-search,
+.selected-product,
+.bill-section,
+.summary-section,
+.button-section,
+.customer-history{
+
+    display:none !important;
+
+}
+
+.invoice-preview{
+
+    display:block !important;
+
+    margin:0;
+
+    padding:0;
+
+    background:#fff;
+
+}
+
+.invoice-paper{
+
+    width:80mm !important;
+
+    max-width:80mm !important;
+
+    padding:3mm !important;
+
+    margin:0 auto !important;
+
+    box-shadow:none !important;
+
+    border:none !important;
+
+}
+
+.invoice-logo{
+
+    width:40px !important;
+
+    height:40px !important;
+
+}
+
+.invoice-header h2{
+
+    font-size:14px;
+
+}
+
+.invoice-header p{
+
+    font-size:10px;
+
+}
+
+.invoice-table th,
+.invoice-table td{
+
+    font-size:10px;
+
+    padding:3px;
+
+}
+
+.invoice-total h2{
+
+    font-size:13px;
+
+}
+
+.invoice-total h1{
+
+    font-size:18px;
+
+}
+
+}
+/* =====================================================
+   PART 3
+   BUTTON EFFECTS
+===================================================== */
+
+button{
+
+    transition:0.3s;
+
+}
+
+button:hover{
+
+    transform:translateY(-2px);
+
+    box-shadow:0 5px 12px rgba(0,0,0,.35);
+
+}
+
+button:active{
+
+    transform:scale(.96);
+
+}
+
+/* =====================================================
+   INPUT EFFECTS
+===================================================== */
+
+input::placeholder{
+
+    color:#bdbdbd;
+
+}
+
+button:focus,
+input:focus,
+select:focus{
+
+    outline:none;
+
+}
+
+/* =====================================================
+   READONLY INPUTS
+===================================================== */
+
+input[readonly]{
+
+    cursor:not-allowed;
+
+}
+
+/* =====================================================
+   SEARCH BOX
+===================================================== */
+
+#productSearch{
+
+    font-size:16px;
+
+}
+
+.search-results{
+
+    border:1px solid #444;
+
+}
+
+.search-item:last-child{
+
+    border-bottom:none;
+
+}
+
+/* =====================================================
+   EMPTY BILL MESSAGE
+===================================================== */
+
+#billItems td{
+
+    vertical-align:middle;
+
+}
+
+/* =====================================================
+   UTILITY CLASSES
+===================================================== */
+
+.text-center{
+
+    text-align:center;
+
+}
+
+.text-right{
+
+    text-align:right;
+
+}
+
+.text-left{
+
+    text-align:left;
+
+}
+
+.mt-10{
+
+    margin-top:10px;
+
+}
+
+.mt-20{
+
+    margin-top:20px;
+
+}
+
+.mt-30{
+
+    margin-top:30px;
+
+}
+
+.mb-10{
+
+    margin-bottom:10px;
+
+}
+
+.mb-20{
+
+    margin-bottom:20px;
+
+}
+
+.mb-30{
+
+    margin-bottom:30px;
+
+}
+
+.hidden{
+
+    display:none;
+
+}
+
+.show{
+
+    display:block;
+
+}
+
+/* =====================================================
+   CARD SHADOWS
+===================================================== */
+
+.customer-card,
+.billing-mode,
+.product-search,
+.selected-product,
+.bill-section,
+.summary-section,
+.customer-history{
+
+    box-shadow:
+    0 8px 20px rgba(0,0,0,.35);
+
+}
+
+/* =====================================================
+   TABLE ROW COLORS
+===================================================== */
+
+#billTable tbody tr:nth-child(even){
+
+    background:#1a212d;
+
+}
+
+#billTable tbody tr:nth-child(odd){
+
+    background:#161b22;
+
+}
+
+/* =====================================================
+   SUMMARY COLORS
+===================================================== */
+
+#itemCount{
+
+    color:#2ecc71;
+
+    font-weight:bold;
+
+}
+
+#subTotal{
+
+    color:#f39c12;
+
+    font-weight:bold;
+
+}
+
+#grandTotal{
+
+    color:#ffffff;
+
+    font-size:28px;
+
+    font-weight:bold;
+
+}
+
+/* =====================================================
+   CUSTOMER HISTORY
+===================================================== */
+
+.history-item{
+
+    transition:.3s;
+
+}
+
+.history-item:hover{
+
+    background:#263241;
+
+}
+
+/* =====================================================
+   MOBILE TABLE
+===================================================== */
+
+@media(max-width:600px){
+
+.table-container{
+
+    overflow-x:scroll;
+
+}
+
+#billTable{
+
+    min-width:650px;
+
+}
+
+}
+
+/* =====================================================
+   LARGE SCREEN
+===================================================== */
+
+@media(min-width:1600px){
+
+.billing-container{
+
+    max-width:1750px;
+
+}
+
+}
+
+/* =====================================================
+   RECEIPT FOOTER
+===================================================== */
+
+.receipt-footer{
+
+    margin-top:15px;
+
+    text-align:center;
+
+    font-size:11px;
+
+    border-top:1px dashed #999;
+
+    padding-top:10px;
+
+}
+
+/* =====================================================
+   THANK YOU
+===================================================== */
+
+.receipt-footer h3{
+
+    font-size:14px;
+
+    margin-bottom:5px;
+
+}
+
+.receipt-footer p{
+
+    line-height:1.5;
+
+}
+#billTable input{
+
+    width:70px;
+
+    padding:6px;
+
+    text-align:center;
+
+    border-radius:6px;
+
+    border:none;
+
+    background:#2d3748;
+
+    color:#fff;
+
+}
+
+/* =====================================================
+   LOGO
+===================================================== */
+
+.invoice-logo{
+
+    border-radius:50%;
+
+}
+
+/* =====================================================
+   END OF FILE
+===================================================== */

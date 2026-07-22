@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+<title>Daily Sales</title>
+
+<style>
+
+body{
+background:#111;
+color:white;
+font-family:Arial;
+padding:20px;
+}
+
+h1{
+text-align:center;
+color:#f39c12;
+margin-bottom:20px;
+}
+
+.grid{
+display:grid;
+grid-template-columns:
+repeat(auto-fit,minmax(250px,1fr));
+gap:15px;
+}
+
+.card{
+background:#1c1c1c;
+padding:20px;
+border-radius:15px;
+text-align:center;
+}
+
+.card h3{
+color:#f5b041;
+margin-bottom:10px;
+}
+
+.card h2{
+font-size:30px;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<h1>
+Daily Sales Report
+</h1>
+
+<div class="grid">
+
+<div class="card">
+
+<h3>
+Today's Revenue
+</h3>
+
+<h2 id="todayRevenue">
+₹0
+</h2>
+
+</div>
+
+<div class="card">
+
+<h3>
+Today's Bills
+</h3>
+
+<h2 id="todayBills">
+0
+</h2>
+
+</div>
+
+<div class="card">
+
+<h3>
+Products Sold Today
+</h3>
+
+<h2 id="productsSold">
+0
+</h2>
+
+</div>
+
+</div>
+<script>
+
+async function loadDailySales(){
+
+const salesResponse =
+await fetch(
+'http://localhost:5000/today-sales'
+);
+
+const sales =
+await salesResponse.json();
+
+document.getElementById(
+'todayRevenue'
+).innerText =
+
+'₹' +
+
+parseFloat(
+sales.revenue || 0
+).toFixed(2);
+
+document.getElementById(
+'todayBills'
+).innerText =
+
+sales.total_bills;
+
+const productsResponse =
+await fetch(
+'http://localhost:5000/today-products-sold'
+);
+
+const products =
+await productsResponse.json();
+
+document.getElementById(
+'productsSold'
+).innerText =
+
+products.products_sold;
+
+}
+
+loadDailySales();
+
+</script>
+
+</body>
+
+</html>

@@ -1,0 +1,969 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta
+name="viewport"
+content="width=device-width, initial-scale=1.0">
+
+<title>
+
+SLV Stores - Admin Orders
+
+</title>
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Arial,sans-serif;
+}
+
+body{
+background:#111;
+color:#fff;
+padding:20px;
+}
+
+.container{
+max-width:1500px;
+margin:auto;
+}
+
+.header{
+display:flex;
+justify-content:space-between;
+align-items:center;
+gap:20px;
+flex-wrap:wrap;
+margin-bottom:25px;
+}
+
+.logo{
+font-size:34px;
+font-weight:bold;
+color:#f39c12;
+}
+
+.dashboard-btn{
+background:#f39c12;
+color:#111;
+padding:12px 24px;
+border-radius:10px;
+text-decoration:none;
+font-weight:bold;
+transition:.3s;
+}
+
+.dashboard-btn:hover{
+background:#ffb84d;
+}
+
+.search-box{
+margin-bottom:20px;
+}
+
+.search-box input{
+width:100%;
+padding:14px;
+background:#1c1c1c;
+border:2px solid #333;
+border-radius:10px;
+color:#fff;
+font-size:16px;
+outline:none;
+}
+
+.search-box input:focus{
+border-color:#f39c12;
+}
+
+.stats{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+gap:18px;
+margin-bottom:25px;
+}
+
+.stat-card{
+background:#1c1c1c;
+border:2px solid #333;
+border-radius:15px;
+padding:20px;
+text-align:center;
+transition:.3s;
+}
+
+.stat-card:hover{
+border-color:#f39c12;
+transform:translateY(-4px);
+}
+
+.stat-card h3{
+color:#f39c12;
+margin-bottom:10px;
+}
+
+.stat-card h1{
+font-size:34px;
+}
+
+.filter-box{
+margin-bottom:25px;
+}
+
+.filter-box select{
+width:100%;
+padding:14px;
+background:#1c1c1c;
+color:white;
+border:2px solid #333;
+border-radius:10px;
+outline:none;
+}
+
+.orders-grid{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(420px,1fr));
+gap:20px;
+}
+
+.order-card{
+background:#1c1c1c;
+border:2px solid #333;
+border-radius:18px;
+padding:20px;
+transition:.3s;
+}
+
+.order-card:hover{
+border-color:#f39c12;
+}
+
+.order-header{
+display:flex;
+justify-content:space-between;
+align-items:center;
+margin-bottom:15px;
+flex-wrap:wrap;
+gap:10px;
+}
+
+.order-header h2{
+color:#f39c12;
+font-size:22px;
+}
+
+.order-date{
+color:#aaa;
+font-size:14px;
+}
+
+.order-info{
+line-height:1.8;
+margin-bottom:15px;
+}
+
+.order-total{
+font-size:28px;
+font-weight:bold;
+color:#2ecc71;
+margin-bottom:15px;
+}
+
+.status{
+display:inline-block;
+padding:8px 18px;
+border-radius:20px;
+font-weight:bold;
+margin-bottom:15px;
+}
+
+.pending{
+background:#5b4300;
+color:#ffc107;
+}
+
+.processing{
+background:#0d47a1;
+color:#90caf9;
+}
+
+.delivered{
+background:#1b5e20;
+color:#8bc34a;
+}
+
+.cancelled{
+background:#7f0000;
+color:#ef9a9a;
+}
+
+.status-select{
+width:100%;
+padding:12px;
+margin:15px 0;
+background:#252525;
+border:2px solid #333;
+color:white;
+border-radius:10px;
+}
+
+.button-group{
+display:grid;
+grid-template-columns:repeat(3,1fr);
+gap:10px;
+}
+
+button{
+padding:12px;
+border:none;
+border-radius:8px;
+cursor:pointer;
+font-weight:bold;
+}
+
+.update-btn{
+background:#f39c12;
+color:#111;
+}
+
+.print-btn{
+background:#3498db;
+color:white;
+}
+
+.delete-btn{
+background:#e74c3c;
+color:white;
+}
+
+@media(max-width:768px){
+
+.orders-grid{
+grid-template-columns:1fr;
+}
+
+.button-group{
+grid-template-columns:1fr;
+}
+
+}
+table{
+
+width:100%;
+
+border-collapse:collapse;
+
+margin-top:15px;
+
+}
+
+td{
+
+padding:6px;
+
+border:1px solid #ccc;
+
+}
+
+pre{
+
+white-space:pre-wrap;
+
+font-family:Arial;
+
+font-size:14px;
+
+line-height:1.5;
+
+margin-top:10px;
+
+}
+
+h1{
+
+margin:0;
+
+}
+
+h2,h3{
+
+margin:5px 0;
+
+}
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+<div class="header">
+
+<div class="logo">
+
+📦 Admin Orders
+
+</div>
+
+<a
+href="dashboard.html"
+class="dashboard-btn">
+
+⬅ Dashboard
+
+</a>
+
+</div>
+
+<div class="search-box">
+
+<input
+type="text"
+id="searchInput"
+placeholder="Search by Order ID, Customer or Phone"
+onkeyup="searchOrders()">
+
+</div>
+
+<div class="stats">
+
+<div class="stat-card">
+<h3>Total Orders</h3>
+<h1 id="totalOrders">0</h1>
+</div>
+
+<div class="stat-card">
+<h3>Pending</h3>
+<h1 id="pendingOrders">0</h1>
+</div>
+
+<div class="stat-card">
+<h3>Processing</h3>
+<h1 id="processingOrders">0</h1>
+</div>
+
+<div class="stat-card">
+<h3>Delivered</h3>
+<h1 id="deliveredOrders">0</h1>
+</div>
+
+</div>
+
+<div class="filter-box">
+
+<select
+id="statusFilter"
+onchange="filterOrders()">
+
+<option value="All">
+All Orders
+</option>
+
+<option value="Pending">
+Pending
+</option>
+
+<option value="Processing">
+Processing
+</option>
+
+<option value="Delivered">
+Delivered
+</option>
+
+<option value="Cancelled">
+Cancelled
+</option>
+
+</select>
+
+</div>
+
+<div
+id="ordersContainer"
+class="orders-grid">
+
+</div>
+
+<script>
+let allOrders = [];
+
+async function loadOrders(){
+
+    try{
+
+        const response = await fetch("http://localhost:5000/orders");
+
+        if(!response.ok){
+
+            throw new Error("Unable to load orders");
+
+        }
+
+        allOrders = await response.json();
+
+        renderOrders(allOrders);
+
+updateStatistics(allOrders);
+
+console.log(allOrders);
+
+    }
+
+    catch(error){
+
+        console.error(error);
+
+        alert("Failed to load orders");
+
+    }
+
+}
+
+window.onload = function(){
+
+    loadOrders();
+
+};
+function renderOrders(orders){
+
+const container =
+document.getElementById("ordersContainer");
+
+container.innerHTML = "";
+
+if(orders.length === 0){
+
+container.innerHTML =
+
+"<h2 style='text-align:center;'>No Orders Found</h2>";
+
+return;
+
+}
+
+orders.forEach(order=>{
+
+container.innerHTML += `
+
+<div class="order-card">
+
+<div class="order-header">
+
+<h2>Order #${order.id}</h2>
+
+<div class="order-date">
+
+${new Date(order.created_at).toLocaleString()}
+
+</div>
+
+</div>
+
+<div class="order-info">
+
+<b>Customer :</b>
+
+${order.customer_name}
+
+<br><br>
+
+<b>Phone :</b>
+
+${order.phone || "-"}
+
+<br><br>
+
+<b>Address :</b>
+
+${order.address || "-"}
+
+<br><br>
+
+<select
+
+class="status-select"
+
+id="status${order.id}">
+
+<option
+value="Pending"
+${order.status==="Pending"?"selected":""}>
+Pending
+</option>
+
+<option
+value="Processing"
+${order.status==="Processing"?"selected":""}>
+Processing
+</option>
+
+<option
+value="Delivered"
+${order.status==="Delivered"?"selected":""}>
+Delivered
+</option>
+
+<option
+value="Cancelled"
+${order.status==="Cancelled"?"selected":""}>
+Cancelled
+</option>
+
+</select>
+
+<br>
+
+<button
+
+class="update-btn"
+
+onclick="updateStatus(${order.id})">
+
+✅ Update Status
+
+</button>
+<button
+
+class="print-btn"
+
+onclick="printOrder(${order.id})">
+
+🖨 Print Invoice
+
+</button>
+<button
+class="delete-btn"
+onclick="deleteOrder(${order.id})">
+
+🗑 Delete
+
+</button>
+
+<br><br>
+
+<b>Total :</b>
+
+₹${Number(order.grand_total).toFixed(2)}
+
+</div>
+
+</div>
+
+`;
+
+});
+
+}
+function updateStatistics(orders){
+
+document.getElementById("totalOrders").innerText =
+orders.length;
+
+document.getElementById("pendingOrders").innerText =
+orders.filter(order=>order.status==="Pending").length;
+
+document.getElementById("processingOrders").innerText =
+orders.filter(order=>order.status==="Processing").length;
+
+document.getElementById("deliveredOrders").innerText =
+orders.filter(order=>order.status==="Delivered").length;
+
+}
+function searchOrders(){
+
+const keyword =
+document.getElementById("searchInput")
+.value
+.toLowerCase()
+.trim();
+
+const filtered =
+allOrders.filter(order=>{
+
+return(
+
+String(order.id)
+.includes(keyword)
+
+||
+
+(order.customer_name||"")
+.toLowerCase()
+.includes(keyword)
+
+||
+
+String(
+order.phone||
+order.customer_phone||
+""
+)
+.toLowerCase()
+.includes(keyword)
+
+||
+
+(order.address||"")
+.toLowerCase()
+.includes(keyword)
+
+);
+
+});
+
+renderOrders(filtered);
+
+updateStatistics(filtered);
+
+}
+function filterOrders(){
+
+const status =
+document.getElementById(
+"statusFilter"
+).value;
+
+if(status==="All"){
+
+renderOrders(allOrders);
+
+updateStatistics(allOrders);
+
+return;
+
+}
+
+const filtered =
+allOrders.filter(order=>
+
+(order.status || "")
+.toLowerCase() ===
+status.toLowerCase()
+
+);
+
+renderOrders(filtered);
+
+updateStatistics(filtered);
+
+}
+async function updateStatus(id){
+
+const status =
+document.getElementById(
+`status${id}`
+).value;
+
+try{
+
+const response =
+await fetch(
+
+`http://localhost:5000/orders/${id}`,
+
+{
+
+method:"PUT",
+
+headers:{
+
+"Content-Type":"application/json"
+
+},
+
+body:JSON.stringify({
+
+status
+
+})
+
+}
+
+);
+
+if(!response.ok){
+
+throw new Error(
+"Update Failed"
+);
+
+}
+
+alert(
+"Order Status Updated Successfully"
+);
+
+loadOrders();
+
+}
+
+catch(error){
+
+console.error(error);
+
+alert(
+"Unable To Update Order Status"
+);
+
+}
+
+}
+function printOrder(id){
+
+const order =
+allOrders.find(o=>o.id===id);
+
+if(!order){
+
+alert("Order Not Found");
+
+return;
+
+}
+
+const bill = `
+<!DOCTYPE html>
+<html>
+<head>
+
+<title>Invoice #${order.id}</title>
+
+<style>
+
+body{
+    font-family:Arial,sans-serif;
+    margin:15px;
+    font-size:14px;
+    line-height:1.4;
+}
+h1{
+
+text-align:center;
+
+margin-bottom:5px;
+
+}
+
+h3{
+
+text-align:center;
+
+margin-top:0;
+
+}
+
+table{
+
+width:100%;
+
+border-collapse:collapse;
+
+margin-top:20px;
+
+}
+
+td{
+
+padding:10px;
+
+border:1px solid #ccc;
+
+}
+
+.total{
+
+text-align:right;
+
+font-size:24px;
+
+font-weight:bold;
+
+margin-top:20px;
+
+}
+
+.footer{
+
+text-align:center;
+
+margin-top:40px;
+
+color:#666;
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<h1>
+
+SLV Provision Store
+
+</h1>
+
+<h3>
+
+Customer Invoice
+
+</h3>
+
+<hr>
+
+<table>
+
+<tr>
+
+<td><b>Invoice No</b></td>
+
+<td>#${order.id}</td>
+
+</tr>
+
+<tr>
+
+<td><b>Date</b></td>
+
+<td>${new Date(order.created_at).toLocaleString()}</td>
+
+</tr>
+
+<tr>
+
+<td><b>Customer</b></td>
+
+<td>${order.customer_name}</td>
+
+</tr>
+
+<tr>
+
+<td><b>Phone</b></td>
+
+<td>${order.phone || order.customer_phone || "-"}</td>
+
+</tr>
+
+<tr>
+
+<td><b>Address</b></td>
+
+<td>${order.address || order.customer_address || "-"}</td>
+
+</tr>
+
+<tr>
+
+<td><b>Status</b></td>
+
+<td>${order.status}</td>
+
+</tr>
+
+</table>
+
+<h3>
+
+Items Purchased
+
+</h3>
+
+<div style="white-space:pre-wrap;line-height:1.8;">
+
+${decodeURIComponent(order.order_details || "")
+.replace(/^SLV STORES ORDER[\s\S]*?------------------------/,"")
+.replace(/Grand Total:.*$/i,"")}
+
+</div>
+
+<div class="total">
+
+Grand Total :
+₹${Number(order.grand_total || order.total_amount || 0).toFixed(2)}
+
+</div>
+
+<div class="footer">
+
+Thank You For Shopping With Us ❤️
+
+</div>
+`;
+
+const printWindow =
+window.open("","_blank");
+
+printWindow.document.open();
+
+printWindow.document.write(bill);
+
+printWindow.document.close();
+
+printWindow.focus();
+
+setTimeout(()=>{
+
+printWindow.print();
+
+},500);
+
+}
+async function deleteOrder(id){
+
+    if(!confirm("Delete this order permanently?")){
+
+        return;
+
+    }
+
+    try{
+
+        const response = await fetch(
+
+            `http://localhost:5000/orders/${id}`,
+
+            {
+
+                method:"DELETE"
+
+            }
+
+        );
+
+        if(!response.ok){
+
+            throw new Error("Delete failed");
+
+        }
+
+        alert("Order deleted successfully.");
+
+        loadOrders();
+
+    }
+
+    catch(error){
+
+        console.error(error);
+
+        alert("Unable to delete order.");
+
+    }
+
+}
+</script>
+
+</body>
+
+</html>

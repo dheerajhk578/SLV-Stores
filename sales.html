@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0">
+
+<title>SLV Sales</title>
+
+<style>
+
+body{
+font-family:Arial;
+padding:15px;
+background:#f5f5f5;
+max-width:600px;
+margin:auto;
+}
+
+.card{
+background:white;
+padding:20px;
+border-radius:10px;
+box-shadow:0 2px 5px rgba(0,0,0,.2);
+}
+
+select,input,button{
+width:100%;
+padding:12px;
+margin-top:10px;
+}
+
+button{
+background:green;
+color:white;
+border:none;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="card">
+
+<h2>Record Sale</h2>
+
+<select id="productSelect"></select>
+
+<input
+type="number"
+id="quantity"
+placeholder="Quantity">
+
+<button onclick="saveSale()">
+Save Sale
+</button>
+
+</div>
+<script>
+
+if (!sessionStorage.getItem("loggedIn")) {
+    window.location.href = "login.html";
+}
+
+</script>
+<script>
+
+async function loadProducts(){
+
+const response =
+await fetch(
+'http://localhost:5000/products'
+);
+
+const products =
+await response.json();
+
+let options = '';
+
+products.forEach(product=>{
+
+options += `
+<option value="${product.id}">
+${product.product_name}
+(Stock:${product.stock_quantity})
+</option>
+`;
+
+});
+
+document.getElementById(
+'productSelect'
+).innerHTML = options;
+
+}
+
+async function saveSale(){
+
+const product_id =
+document.getElementById(
+'productSelect'
+).value;
+
+const quantity =
+document.getElementById(
+'quantity'
+).value;
+
+const response =
+await fetch(
+'http://localhost:5000/sales',
+{
+method:'POST',
+headers:{
+'Content-Type':
+'application/json'
+},
+body:JSON.stringify({
+product_id,
+quantity
+})
+}
+);
+
+const result =
+await response.json();
+
+alert(
+result.message
+);
+
+loadProducts();
+
+}
+
+loadProducts();
+
+</script>
+
+</body>
+</html>
