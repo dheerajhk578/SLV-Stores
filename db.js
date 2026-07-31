@@ -41,8 +41,7 @@ pool.getConnection((err, connection) => {
     if (err) {
 
         console.error("❌ MySQL Connection Failed");
-
-        console.error(err.message);
+        console.error(err);
 
         return;
 
