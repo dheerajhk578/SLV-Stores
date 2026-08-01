@@ -136,7 +136,7 @@ async function loadProducts() {
 
         const response =
             await fetch(
-                "http://localhost:5000/products"
+                "https://obtain-handles-creator-morning.trycloudflare.com/products"
             );
 
         products =
@@ -794,7 +794,7 @@ async function generateBill() {
 
         const response = await fetch(
 
-            "http://localhost:5000/generate-bill",
+            "https://obtain-handles-creator-morning.trycloudflare.com/generate-bill",
 
             {
 
@@ -1298,7 +1298,7 @@ async function loadCustomerHistory() {
         const response =
             await fetch(
 
-                `http://localhost:5000/customer-history/${phone}`
+                `https://obtain-handles-creator-morning.trycloudflare.com/customer-history/${phone}`
 
             );
 

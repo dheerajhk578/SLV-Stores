@@ -400,7 +400,7 @@ async function loadOrders(){
 
     try{
 
-        const response = await fetch("http://localhost:5000/orders");
+        const response = await fetch("https://obtain-handles-creator-morning.trycloudflare.com/orders");
 
         if(!response.ok){
 
@@ -668,7 +668,7 @@ try{
 const response =
 await fetch(
 
-`http://localhost:5000/orders/${id}`,
+`https://obtain-handles-creator-morning.trycloudflare.com/orders/${id}`,
 
 {
 
@@ -931,7 +931,7 @@ async function deleteOrder(id){
 
         const response = await fetch(
 
-            `http://localhost:5000/orders/${id}`,
+            `https://obtain-handles-creator-morning.trycloudflare.com/orders/${id}`,
 
             {
 
